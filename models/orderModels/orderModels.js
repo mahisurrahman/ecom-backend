@@ -1,0 +1,108 @@
+const mongoose = require("mongoose");
+
+const orderSchema = new mongoose.Schema({
+  cartId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Carts",
+    required: true,
+  },
+  userId:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users',
+    required: true,
+  },
+  userName:{
+    type: String, 
+    required: true,
+  },
+  userFullName:{
+    type: String, 
+    required: true,
+  },
+  userPhoneNumber: {
+    type: Number, 
+    required: true,
+  },
+  userEmail:{
+    type: String,
+    required: true,
+  },
+  userCountry:{
+    type: String,
+    required: true,
+  },
+  userState:{
+    type: String,
+    required: true,
+  },
+  userAddress:{
+    type: String,
+    required: true,
+  },
+  userPostalCode:{
+    type: Number,
+    required: true,
+  },
+  productName: {
+    type: String,
+    required: true,
+  },
+  productThumb:{
+    type: String,
+    required: true,
+  },
+  productSellingPrice: {
+    type: Number, 
+    required: true,
+  },
+  totalQuantity: {
+    type: Number, 
+    requried: true,
+  },
+  allTotalPrice:{
+    type: Number, 
+    required: true,
+  },
+  discount: {
+    type: Number,
+    default: 0,
+  },
+  // stockRemaining:{
+  //   type: Number,
+  //   required: true,
+  // },
+  isDelivered: {
+    type: Boolean,
+    default: false,
+  },
+  isPending: {
+    type: Boolean,
+    default: false,
+  },
+  isCanceled: {
+    type: Boolean,
+    default: false,
+  },
+  status: {
+    type: Boolean,
+    default: true,
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+  createdDate: {
+    type: Date,
+    default: Date.now(),
+  },
+  deletedDate: {
+    type: Date,
+    default: null,
+  },
+});
+
+module.exports = mongoose.model("Orders", orderSchema);
