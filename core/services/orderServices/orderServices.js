@@ -352,6 +352,46 @@ module.exports = {
     }
   },
 
+  async refundedOrderService(params){
+    try{
+      const userId = params.id;
+      const checkUserExists = await userModel.findOne({_id: userId, isDeleted: false});
+      if(!checkUserExists){
+        return{
+          status: 404,
+          error: true,
+          message: 'User Not Found',
+          data: null,
+        }
+      }
+
+      const getAllRefundedOrders = await orderModel.find({_id: userId, isDeleted: true});
+      if(getAllRefundedOrders){
+        return{
+          status: 200,
+          error: false,
+          message: "Here is the Refunded Orders",
+          data: getAllRefundedOrders,
+        }
+      }else{
+        return{
+          status: 400,
+          error: true,
+          message: "Failed to Fetch the Refunded Products",
+          data: null,
+        }
+      }
+    }catch (error) {
+      console.log("Refunded Order Service Error", error);
+      return {
+        status: 500,
+        error: true,
+        message: "Refunded Order Service Error",
+        data: error,
+      };
+    }
+  },
+
   async cancelledOrderService(params){
     try{
       let orderId = params.id;

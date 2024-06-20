@@ -145,6 +145,21 @@ module.exports = {
     }
   },
 
+  async showRefunedOrdersByUserController(req, res) {
+    try {
+      let response = await orderServices.refundedOrderService(req.params);
+      return res.status(response.status).send(response);
+    } catch (error) {
+      console.error(error);
+      const newError = createErrorMessage();
+      newError.data = error;
+      newError.message = "Show Refunded Orders By User Id Controller Internal Server Error";
+      newError.status = statusCode.internalServerError;
+      newError.error = true;
+      return res.status(newError.status).json(newError);
+    }
+  },
+
   async cancelledOrderController (req, res){
     try{
       let response = await orderServices.cancelledOrderService(req.params);
