@@ -493,4 +493,19 @@ module.exports = {
       };
     }
   },
+
+
+  async getPopularProducts (){
+    try{
+
+    }catch (error) {
+      console.log(error);
+      return {
+        status: 409,
+        error: true,
+        message: "Popular Products Services Failed",
+        data: error,
+      };
+    }
+  }
 };

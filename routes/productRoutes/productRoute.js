@@ -8,6 +8,7 @@ router.get("/src/all", productController.idealGetAllProds);
 router.get("/src/byid/:id", productController.showSingleProdController);
 router.get("/del/:id", productController.productDeleteController);
 router.post("/upt/:id",productController.productUpdateController);
+router.get("/src/popular/all", )
 router.post(
   "/crt",
   multerMiddleware.fields([

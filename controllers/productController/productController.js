@@ -93,7 +93,22 @@ const productUpdateController = async(req, res)=>{
   };
 }
 
+//Filter By Highest Product prices//
+const popularProductController = async(req, res)=>{
+  try{
+    let response = await productServices.getPopularProducts();
+    return res.status(response.status).send(response);
+  }catch (error) {
+    console.log(error);
+    return res.send({
+      status: statusCode.internalServerError,
+      error: true,
+      message: "Popular Products Controller Failed",
+      data: error,
+    });
+  };
+}
 
 
 
-module.exports = { getAllProductsControllers, createProductController, idealGetAllProds, showSingleProdController, productDeleteController, productUpdateController };
+module.exports = { getAllProductsControllers, createProductController, idealGetAllProds, showSingleProdController, popularProductController, productDeleteController, productUpdateController };
