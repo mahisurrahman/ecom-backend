@@ -335,6 +335,35 @@ module.exports = {
     }
   },
 
+  async showAllDeliveredOrdersService () {
+    try{
+      const getDeliveredOrders = await orderModel.find({isDelivered: true, isDeleted: false});
+      if(getDeliveredOrders){
+        return{
+          status: 200,
+          error: false,
+          message: "All Delivered Orders are Here",
+          data: getDeliveredOrders,
+        }
+      }else{
+        return{
+          status: 200,
+          error: false,
+          message: "No Delivered Orders Found",
+          data: null,
+        }
+      }
+    }catch (error) {
+      console.log("Show All Delivered Orders Service Error", error);
+      return {
+        status: 500,
+        error: true,
+        message: "Show All Delivered Orders Service Error",
+        data: error,
+      };
+    }
+  },
+
   async pendingOrderService(params){
     try{
       let orderId = params.id;
