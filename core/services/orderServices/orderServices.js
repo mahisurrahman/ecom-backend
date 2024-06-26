@@ -372,7 +372,7 @@ module.exports = {
           status: 200,
           error: false,
           message: "All Deleted Orders are Here",
-          data: getDeliveredOrders,
+          data: getDeletedOrders,
         }
       }else{
         return{
