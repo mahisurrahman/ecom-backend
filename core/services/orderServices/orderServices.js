@@ -394,35 +394,6 @@ module.exports = {
   },
 
 
-  async showAllCancelledOrdersService () {
-    try{
-      const getCancelledOrders = await orderModel.find({isCancelled: true, isDeleted: true});
-      if(getCancelledOrders){
-        return{
-          status: 200,
-          error: false,
-          message: "All Cnacelled Orders are Here",
-          data: getCancelledOrders,
-        }
-      }else{
-        return{
-          status: 200,
-          error: false,
-          message: "No Cancelled Orders Found",
-          data: null,
-        }
-      }
-    }catch (error) {
-      console.log("Show All Cancelled Orders Service Error", error);
-      return {
-        status: 500,
-        error: true,
-        message: "Show All Cancelled Orders Service Error",
-        data: error,
-      };
-    }
-  },
-
   //Filter By Date//
   async showAllTodayOrdersService () {
     try{
