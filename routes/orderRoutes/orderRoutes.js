@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createOrderController, showOrderController, showSingleOrderController, deleteOrderController, updateOrderController, showAllOrderController, pendingOrderController, cancelledOrderController, confirmedOrderController, showOrdersByUserController, showRefunedOrdersByUserController, showAllPendingOrdersController, showAllDeliveredOrdersController } = require("../../controllers/orderController/orderController");
+const { createOrderController, showOrderController, showSingleOrderController, deleteOrderController, updateOrderController, showAllOrderController, pendingOrderController, cancelledOrderController, confirmedOrderController, showOrdersByUserController, showRefunedOrdersByUserController, showAllPendingOrdersController, showAllDeliveredOrdersController, showAllDeletedOrdersController } = require("../../controllers/orderController/orderController");
 
 router.post("/crt", createOrderController);
 router.post("/upt/byid/:id", updateOrderController);
@@ -14,6 +14,7 @@ router.get("/src/user/byid/:id", showOrdersByUserController);
 
 router.get('/src/pending/all', showAllPendingOrdersController);
 router.get('/src/delivered/all', showAllDeliveredOrdersController);
+router.get('/src/deleted/all', showAllDeletedOrdersController);
 
 router.get("/del/byid/:id", deleteOrderController);
 router.get("/refunds/byid/:id", showRefunedOrdersByUserController);

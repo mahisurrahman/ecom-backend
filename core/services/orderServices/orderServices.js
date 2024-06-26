@@ -364,6 +364,35 @@ module.exports = {
     }
   },
 
+  async showAllDeletedOrdersService () {
+    try{
+      const getDeletedOrders = await orderModel.find({isDeleted: true});
+      if(getDeletedOrders){
+        return{
+          status: 200,
+          error: false,
+          message: "All Deleted Orders are Here",
+          data: getDeliveredOrders,
+        }
+      }else{
+        return{
+          status: 200,
+          error: false,
+          message: "No Deleted Orders Found",
+          data: null,
+        }
+      }
+    }catch (error) {
+      console.log("Show All Deleted Orders Service Error", error);
+      return {
+        status: 500,
+        error: true,
+        message: "Show All Deleted Orders Service Error",
+        data: error,
+      };
+    }
+  },
+
   async pendingOrderService(params){
     try{
       let orderId = params.id;
