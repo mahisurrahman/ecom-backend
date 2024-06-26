@@ -306,6 +306,35 @@ module.exports = {
     }
   },
 
+  async showAllPendingOrdersService () {
+    try{
+      const getPendingOrders = await orderModel.find({isPending: true, isDeleted: false});
+      if(getPendingOrders){
+        return{
+          status: 200,
+          error: false,
+          message: "All Pending Orders are Here",
+          data: getPendingOrders,
+        }
+      }else{
+        return{
+          status: 404,
+          error: true,
+          message: "No Pending Orders Found",
+          data: null,
+        }
+      }
+    }catch (error) {
+      console.log("Show All Pending Orders Service Error", error);
+      return {
+        status: 500,
+        error: true,
+        message: "Show All Pending Orders Service Error",
+        data: error,
+      };
+    }
+  },
+
   async pendingOrderService(params){
     try{
       let orderId = params.id;

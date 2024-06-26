@@ -100,6 +100,21 @@ module.exports = {
     }
   },
 
+  async showAllPendingOrdersController (req, res){
+    try{
+      let response = await orderServices.showAllPendingOrdersService();
+      return res.status(response.status).send(response);
+    }catch (error) {
+      console.error(error);
+      const newError = createErrorMessage();
+      newError.data = error;
+      newError.message = "Show Pending Orders Controller Internal Server Error";
+      newError.status = statusCode.internalServerError;
+      newError.error = true;
+      return res.status(newError.status).json(newError);
+    }
+  },
+
   async deleteOrderController(req, res) {
     try {
       let response = await orderServices.deleteOrderService(req.params);
