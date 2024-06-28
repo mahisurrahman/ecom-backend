@@ -1,4 +1,14 @@
-const { createStockService, showAllStockServices, showSingleStockService, updateStockService, stockIncreaseService, stockDecreaseService, showAllStockIdeal, deleteStockService } = require("../../core/services/stockServices/stockServices");
+const {
+  createStockService,
+  showAllStockServices,
+  showSingleStockService,
+  updateStockService,
+  stockIncreaseService,
+  stockDecreaseService,
+  showAllStockIdeal,
+  deleteStockService,
+  showAllStockOutServices,
+} = require("../../core/services/stockServices/stockServices");
 
 const statusCode = require("../../core/status/statusCode");
 
@@ -14,9 +24,9 @@ const createErrorMessage = (message, data) => {
 module.exports = {
   async createStockController(req, res) {
     try {
-        let response = await createStockService(req.body);
-        return res.status(response.status).send(response);
-        // console.log(req.body);
+      let response = await createStockService(req.body);
+      return res.status(response.status).send(response);
+      // console.log(req.body);
     } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
@@ -28,11 +38,11 @@ module.exports = {
     }
   },
 
-  async showAllStockController (req, res){
-    try{
+  async showAllStockController(req, res) {
+    try {
       let response = await showAllStockServices();
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -43,12 +53,12 @@ module.exports = {
     }
   },
 
-  async showSingleStockController (req, res){
-    try{
+  async showSingleStockController(req, res) {
+    try {
       // console.log(req.params);
       let response = await showSingleStockService(req.params);
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -59,11 +69,26 @@ module.exports = {
     }
   },
 
-  async updateStockController (req, res){
-    try{
+  async showStockOutsController(req, res) {
+    try {
+      let response = await showAllStockOutServices();
+      return res.status(response.status).send(response);
+    } catch (error) {
+      console.error(error);
+      const newError = createErrorMessage();
+      newError.data = error;
+      newError.message = "Show Stock outs Controller Internal Server Error";
+      newError.status = statusCode.internalServerError;
+      newError.error = true;
+      return res.status(newError.status).json(newError);
+    }
+  },
+
+  async updateStockController(req, res) {
+    try {
       let response = await updateStockService(req.body, req.params.id);
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -74,66 +99,67 @@ module.exports = {
     }
   },
 
-  async increaseStockController (req,res){
-    try{
-    let response = await stockIncreaseService(req.body, req.params);
-    return res.status(response.status).send(response);
-    }catch (error) {
+  async increaseStockController(req, res) {
+    try {
+      let response = await stockIncreaseService(req.body, req.params);
+      return res.status(response.status).send(response);
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
-      newError.message = "Increase Single Stock Controller Internal Server Error";
+      newError.message =
+        "Increase Single Stock Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
   },
 
-  async decreaseStockController (req,res){
-    try{
-    let response = await stockDecreaseService(req.body, req.params);
-    return res.status(response.status).send(response);
-    }catch (error) {
+  async decreaseStockController(req, res) {
+    try {
+      let response = await stockDecreaseService(req.body, req.params);
+      return res.status(response.status).send(response);
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
-      newError.message = "Decrease Single Stock Controller Internal Server Error";
+      newError.message =
+        "Decrease Single Stock Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
   },
 
-  async showAllStockIdealController (req,res){
-    try{
-    let response = await showAllStockIdeal();
-    return res.status(response.status).send(response);
-    }catch (error) {
+  async showAllStockIdealController(req, res) {
+    try {
+      let response = await showAllStockIdeal();
+      return res.status(response.status).send(response);
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
-      newError.message = "Show All Stock Ideal Controller Internal Server Error";
+      newError.message =
+        "Show All Stock Ideal Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
   },
 
-
-  async deleteStockController (req,res){
-    try{
-    let response = await deleteStockService(req.params);
-    return res.status(response.status).send(response);
-    }catch (error) {
+  async deleteStockController(req, res) {
+    try {
+      let response = await deleteStockService(req.params);
+      return res.status(response.status).send(response);
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
-      newError.message = "Decrease Single Stock Controller Internal Server Error";
+      newError.message =
+        "Decrease Single Stock Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
   },
-
-  
 };

@@ -1,7 +1,6 @@
 const stockModel = require("../../../models/stockModels/stockModel");
 const productModel = require("../../../models/productModels/productModels");
 
-
 module.exports = {
   async createStockService(data) {
     try {
@@ -58,20 +57,20 @@ module.exports = {
   async showAllStockServices() {
     try {
       const stockDetails = await stockModel.find({ isDeleted: false });
-      if (stockDetails.length>0) {
+      if (stockDetails.length > 0) {
         return {
           status: 200,
           error: false,
           message: "Here are the List of all the Stocks",
           data: stockDetails,
         };
-      } 
-        return {
-          status: 404,
-          error: true,
-          message: "No Content Found on see all stock services",
-          data: [],
-        };
+      }
+      return {
+        status: 404,
+        error: true,
+        message: "No Content Found on see all stock services",
+        data: [],
+      };
     } catch (error) {
       console.log("Show All Stock Service Error", error);
       return {
@@ -83,12 +82,42 @@ module.exports = {
     }
   },
 
+  async showAllStockOutServices() {
+    try {
+      const stockDetails = await stockModel.find({
+        stockQTY: 0,
+      });
+      if (stockDetails.length > 0) {
+        return {
+          status: 200,
+          error: false,
+          message: "Here are the List of all the Stock Out Products",
+          data: stockDetails,
+        };
+      }
+      return {
+        status: 404,
+        error: true,
+        message: "No Content Found on see all stock out services",
+        data: [],
+      };
+    } catch (error) {
+      console.log("Show All Stock Out Service Error", error);
+      return {
+        status: 500,
+        error: true,
+        message: "Show All Stock Out Service Error",
+        data: error,
+      };
+    }
+  },
+
   async showSingleStockService(data) {
     try {
       const prodId = data.id;
-      let pId = prodId.toString();
+      // let pId = prodId.toString();
       const stockDetails = await stockModel.findOne({
-        productId: pId,
+        productId: prodId,
         isDeleted: false,
       });
       if (stockDetails) {
