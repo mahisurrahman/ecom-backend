@@ -263,11 +263,12 @@ module.exports = {
     }
   },
 
-  async deletingCategoryService(data, params) {
+  async deletingCategoryService(params) {
     try {
-      const catCode = data.categoryCode;
+      // const catCode = data.categoryCode;
+      const catId = params.id;
       const alreadyDeletedCat = await categoryModel.findOne({
-        categoryCode: catCode,
+        _id: catId,
         isDeleted: true,
       });
       if (alreadyDeletedCat !== null) {
@@ -280,12 +281,12 @@ module.exports = {
       }
 
       const deleteCat = await categoryModel.findOne({
-        categoryCode: catCode,
+        _id: catId,
         isDeleted: false,
       });
       if (deleteCat) {
         const result = await categoryModel.updateOne(
-          { categoryCode: catCode },
+          { _id: catId },
           { isDeleted: true, isActive: false },
           { new: true }
         );

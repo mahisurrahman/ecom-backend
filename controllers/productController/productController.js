@@ -16,6 +16,21 @@ const getAllProductsControllers = async (req, res) => {
   }
 };
 
+const getAllDeletedProductsControllers = async (req, res) => {
+  try {
+    let response = await productServices.getAllDeletedProductSrvc();
+    return res.status(response.status).send(response);
+  } catch (error) {
+    console.log(error);
+    return res.send({
+      status: statusCode.internalServerError,
+      error: true,
+      message: "Get All Deleted Products Controller Failed",
+      data: error,
+    });
+  }
+};
+
 const createProductController = async (req, res) => {
   try {
     let response = await productServices.createProductSrvc(req);
@@ -28,15 +43,14 @@ const createProductController = async (req, res) => {
       message: "Get All Products Controller Failed",
       data: error,
     });
-  };
-
+  }
 };
 
-const idealGetAllProds = async(req, res)=>{
-  try{
+const idealGetAllProds = async (req, res) => {
+  try {
     let response = await productServices.getAllProductsIdealService();
     return res.status(response.status).send(response);
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     return res.send({
       status: statusCode.internalServerError,
@@ -44,14 +58,14 @@ const idealGetAllProds = async(req, res)=>{
       message: "Ideal: Get All Products Controller Failed",
       data: error,
     });
-  };
+  }
 };
 
-const showSingleProdController = async(req, res) =>{
-  try{
+const showSingleProdController = async (req, res) => {
+  try {
     let response = await productServices.showSingleProductService(req.params);
     return res.status(response.status).send(response);
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     return res.send({
       status: statusCode.internalServerError,
@@ -59,15 +73,14 @@ const showSingleProdController = async(req, res) =>{
       message: "Show Single Products Controller Failed",
       data: error,
     });
-  };
-}
+  }
+};
 
-
-const productDeleteController = async(req, res)=>{
-  try{
+const productDeleteController = async (req, res) => {
+  try {
     let response = await productServices.deleteProductService(req.params);
     return res.status(response.status).send(response);
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     return res.send({
       status: statusCode.internalServerError,
@@ -75,14 +88,17 @@ const productDeleteController = async(req, res)=>{
       message: "Delete Single Products Controller Failed",
       data: error,
     });
-  };
+  }
 };
 
-const productUpdateController = async(req, res)=>{
-  try{
-    let response = await productServices.updateProductInfoService(req.body, req.params);
+const productUpdateController = async (req, res) => {
+  try {
+    let response = await productServices.updateProductInfoService(
+      req.body,
+      req.params
+    );
     return res.status(response.status).send(response);
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     return res.send({
       status: statusCode.internalServerError,
@@ -90,15 +106,15 @@ const productUpdateController = async(req, res)=>{
       message: "Update Single Product Controller Failed",
       data: error,
     });
-  };
-}
+  }
+};
 
 //Filter By Highest Product prices//
-const popularProductController = async(req, res)=>{
-  try{
+const popularProductController = async (req, res) => {
+  try {
     let response = await productServices.getPopularProducts();
     return res.status(response.status).send(response);
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     return res.send({
       status: statusCode.internalServerError,
@@ -106,9 +122,16 @@ const popularProductController = async(req, res)=>{
       message: "Popular Products Controller Failed",
       data: error,
     });
-  };
-}
+  }
+};
 
-
-
-module.exports = { getAllProductsControllers, createProductController, idealGetAllProds, showSingleProdController, popularProductController, productDeleteController, productUpdateController };
+module.exports = {
+  getAllProductsControllers,
+  createProductController,
+  idealGetAllProds,
+  showSingleProdController,
+  popularProductController,
+  productDeleteController,
+  productUpdateController,
+  getAllDeletedProductsControllers,
+};

@@ -6,9 +6,10 @@ const multerMiddleware = require("../../middleware/multer.middleware");
 router.get("/src", productController.getAllProductsControllers);
 router.get("/src/all", productController.idealGetAllProds);
 router.get("/src/byid/:id", productController.showSingleProdController);
+router.get("/deleted/src", productController.getAllDeletedProductsControllers);
 router.get("/del/:id", productController.productDeleteController);
-router.post("/upt/:id",productController.productUpdateController);
-router.get("/src/popular/all", )
+router.post("/upt/:id", productController.productUpdateController);
+router.get("/src/popular/all");
 router.post(
   "/crt",
   multerMiddleware.fields([

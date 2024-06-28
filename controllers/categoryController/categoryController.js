@@ -36,11 +36,11 @@ module.exports = {
     }
   },
 
-  async createSubCategoryController(req, res){
-    try{
+  async createSubCategoryController(req, res) {
+    try {
       let response = await createSubCategoryService(req.body);
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -81,41 +81,43 @@ module.exports = {
     }
   },
 
-  async showSingleCategoryController (req, res){
-    try{
-        let response = await showSingleCategoryService(req.body);
-        return res.status(response.status).send(response);
-    }catch (error) {
+  async showSingleCategoryController(req, res) {
+    try {
+      let response = await showSingleCategoryService(req.body);
+      return res.status(response.status).send(response);
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
-      newError.message = "Show Single Category Controller Internal Server Error";
+      newError.message =
+        "Show Single Category Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
   },
 
-  async showSingleSubCategoryController (req, res){
-    try{
-        let response = await showSingleSubCategoryService(req.body);
-        return res.status(response.status).send(response);
-    }catch (error) {
+  async showSingleSubCategoryController(req, res) {
+    try {
+      let response = await showSingleSubCategoryService(req.body);
+      return res.status(response.status).send(response);
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
-      newError.message = "Show Single Category Controller Internal Server Error";
+      newError.message =
+        "Show Single Category Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
   },
 
-  async deleteCategoryController (req, res){
-    try{
-        let response = await deletingCategoryService(req.body, req.params);
-        return res.status(response.status).send(response);
-    }catch (error) {
+  async deleteCategoryController(req, res) {
+    try {
+      let response = await deletingCategoryService(req.params);
+      return res.status(response.status).send(response);
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -126,11 +128,11 @@ module.exports = {
     }
   },
 
-  async deleteSubCategoryController (req, res){
-    try{
-        let response = await deletingSubCategoryService(req.body);
-        return res.status(response.status).send(response);
-    }catch (error) {
+  async deleteSubCategoryController(req, res) {
+    try {
+      let response = await deletingSubCategoryService(req.body);
+      return res.status(response.status).send(response);
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -139,5 +141,5 @@ module.exports = {
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
-  }
+  },
 };

@@ -2,13 +2,11 @@ const productModels = require("../../../models/productModels/productModels");
 const statusCode = require("../../status/statusCode");
 const stockModel = require("../../../models/stockModels/stockModel");
 
-
 module.exports = {
   async createProductSrvc(data) {
     try {
       let thumbnail = null;
       let images = [];
-
 
       const {
         productName,
@@ -21,8 +19,7 @@ module.exports = {
         stockQuantity,
       } = data.body;
 
-      const { productImg, 
-        productThumb,} = data.files;
+      const { productImg, productThumb } = data.files;
 
       if (!productName) {
         return {
@@ -78,7 +75,7 @@ module.exports = {
         };
       }
 
-      //  checking out 
+      //  checking out
       if (!categoryId) {
         return {
           status: 404,
@@ -106,13 +103,13 @@ module.exports = {
         };
       }
 
-      if(buyingPrice <0){
-        return{
+      if (buyingPrice < 0) {
+        return {
           status: 409,
           error: true,
           message: "Buying cannot be below 0",
           data: null,
-        }
+        };
       }
 
       const existsProductName = await productModels.findOne({
@@ -130,23 +127,23 @@ module.exports = {
       }
 
       //Product Thumbnail//
-      if(data.files.productThumb){
+      if (data.files.productThumb) {
         const prodThumb = data.files.productThumb;
-      prodThumb.map((thumb) => {
-        let imageName = thumb.path.split("images/");
-        // console.log(imageName[1], "Hellllooos mac");
-        thumbnail = imageName[1];
-      });
+        prodThumb.map((thumb) => {
+          let imageName = thumb.path.split("images/");
+          // console.log(imageName[1], "Hellllooos mac");
+          thumbnail = imageName[1];
+        });
       }
 
       //Product Images//
-     if(data.files.productImg){
-      const prodImages = data.files.productImg;
-      prodImages.map((image) => {
-        let imageTitle = image.path.split("images/")[1];
-        images.push(imageTitle);
-      });
-     }
+      if (data.files.productImg) {
+        const prodImages = data.files.productImg;
+        prodImages.map((image) => {
+          let imageTitle = image.path.split("images/")[1];
+          images.push(imageTitle);
+        });
+      }
 
       const createProduct = await productModels.create({
         productName,
@@ -228,6 +225,34 @@ module.exports = {
         status: 409,
         error: true,
         message: "Get All Products Services Failed",
+        data: error,
+      };
+    }
+  },
+
+  async getAllDeletedProductSrvc() {
+    try {
+      const result = await productModels.find({ isDeleted: true });
+      if (result.length === 0) {
+        return {
+          status: 200,
+          error: false,
+          message: "No Deleted Products Listed",
+          data: null,
+        };
+      }
+      return {
+        status: 200,
+        error: false,
+        message: "Shown All Deleted Products",
+        data: result,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        status: 409,
+        error: true,
+        message: "Get All Deleted Products Services Failed",
         data: error,
       };
     }
@@ -325,19 +350,28 @@ module.exports = {
       );
 
       if (prodDelete) {
-        return {
-          status: 200,
-          error: false,
-          message: "Successfully Deleted Product",
-          data: prodDelete,
-        };
-      } else {
-        return {
-          status: 409,
-          error: false,
-          message: "Product Deletion Failed",
-          data: null,
-        };
+        let stockDelete = await stockModel.findOneAndUpdate(
+          { productId: prodId },
+          { isDelete: true, isActive: false },
+          { new: true }
+        );
+
+        if (stockDelete) {
+          return {
+            status: 200,
+            error: false,
+            message: "Successfully Deleted the Product and Its Stock",
+            data: stockDelete,
+            prodDelete,
+          };
+        } else {
+          return {
+            stats: 400,
+            error: true,
+            message: "Failed to Delete the Product's Stock",
+            data: null,
+          };
+        }
       }
     } catch (error) {
       console.log(error);
@@ -458,7 +492,6 @@ module.exports = {
         }
       }
 
-
       if (data?.discount) {
         const result = await productModels.updateOne(
           { _id: prodId },
@@ -481,8 +514,6 @@ module.exports = {
           };
         }
       }
-
-
     } catch (error) {
       console.log(error);
       return {
@@ -494,11 +525,9 @@ module.exports = {
     }
   },
 
-
-  async getPopularProducts (){
-    try{
-
-    }catch (error) {
+  async getPopularProducts() {
+    try {
+    } catch (error) {
       console.log(error);
       return {
         status: 409,
@@ -507,5 +536,5 @@ module.exports = {
         data: error,
       };
     }
-  }
+  },
 };
