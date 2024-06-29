@@ -21,65 +21,77 @@ module.exports = {
           message: "Cart Not Found",
           data: null,
         };
-      } 
+      }
 
       const userId = checkCartExists.userId;
       const productId = checkCartExists.productId;
 
-      const checkUserExists = await userModel.findOne({_id: userId, isDeleted: false});
-      if(!checkUserExists){
+      const checkUserExists = await userModel.findOne({
+        _id: userId,
+        isDeleted: false,
+      });
+      if (!checkUserExists) {
         return {
           status: 404,
           error: true,
           message: "User Not Found",
           data: null,
-        }
+        };
       }
 
-      const checkCustomerExists = await customerModel.findOne({userId: userId, isDeleted: false});
-      if(!checkCustomerExists){
+      const checkCustomerExists = await customerModel.findOne({
+        userId: userId,
+        isDeleted: false,
+      });
+      if (!checkCustomerExists) {
         return {
           status: 404,
           error: true,
           message: "Customer Doesn't Exist",
           data: null,
-        }
+        };
       }
 
-      const checkProductExists = await productModel.findOne({_id: productId, isDeleted: false});
-      if(!checkProductExists){
+      const checkProductExists = await productModel.findOne({
+        _id: productId,
+        isDeleted: false,
+      });
+      if (!checkProductExists) {
         return {
           status: 404,
           error: true,
           message: "Product Doesn't Exist",
           data: null,
-        }
+        };
       }
 
-      const checkStockExists = await stockModel.findOne({productId: productId, isDeleted: false});
-      if(!checkStockExists){
+      const checkStockExists = await stockModel.findOne({
+        productId: productId,
+        isDeleted: false,
+      });
+      if (!checkStockExists) {
         return {
           status: 404,
           error: true,
           message: "Stock Not Found",
-          data: null
-        }
+          data: null,
+        };
       }
 
-      if(checkStockExists.stockQTY <= 0){
+      if (checkStockExists.stockQTY <= 0) {
         return {
           status: 400,
           error: true,
           message: "Stock Not Available",
           data: null,
-        }
+        };
       }
 
       const createOrder = await orderModel.create({
         cartId: cartId,
         userId: userId,
         productId: checkProductExists._id,
-        userName: checkUserExists.userName, 
+        userName: checkUserExists.userName,
         userFullName: checkUserExists.userFullName,
         userPhoneNumber: checkUserExists.phoneNumber,
         userEmail: checkUserExists.userEmail,
@@ -97,20 +109,20 @@ module.exports = {
         // stockRemaining: checkStockExists.stockQTY,
       });
 
-      if(createOrder){
+      if (createOrder) {
         return {
           status: 200,
           error: false,
           message: "Successfully Placed the Order",
           data: createOrder,
-        }
+        };
       } else {
         return {
           status: 400,
           error: true,
           message: "Failed to Place the Order",
           data: null,
-        }
+        };
       }
     } catch (error) {
       console.log("Create Order Service Error", error);
@@ -129,7 +141,7 @@ module.exports = {
         status: 200,
         error: false,
         message: "Successfully Updated the Order",
-        data: {}, 
+        data: {},
       };
     } catch (error) {
       console.log("Update Order Service Error", error);
@@ -145,37 +157,39 @@ module.exports = {
   async deleteOrderService(params) {
     try {
       const orderId = params.id;
-      const checkOrderExists = await orderModel.findOne({_id: orderId, isDeleted: false});
-      if(!checkOrderExists){
-        return{
+      const checkOrderExists = await orderModel.findOne({
+        _id: orderId,
+        isDeleted: false,
+      });
+      if (!checkOrderExists) {
+        return {
           status: 404,
           error: true,
           message: "Order Not Found",
           data: null,
-        }
-      };
+        };
+      }
 
       const removeOrder = await orderModel.updateOne(
-        {_id: orderId},
-        {isActive: false,
-        isDeleted: true},
-        {new: true},
-      )
-      
-      if(removeOrder){
-        return{
+        { _id: orderId },
+        { isActive: false, isDeleted: true },
+        { new: true }
+      );
+
+      if (removeOrder) {
+        return {
           status: 200,
           error: false,
           message: "Successfully Deleted the Order",
           data: null,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 400,
           error: true,
           message: "Failed to remove the Orders",
           data: null,
-        }
+        };
       }
     } catch (error) {
       console.log("Delete Order Service Error", error);
@@ -190,21 +204,21 @@ module.exports = {
 
   async showOrderService() {
     try {
-      let allOrderServices = await orderModel.find({isDeleted: false});
-      if(allOrderServices){
-        return{
+      let allOrderServices = await orderModel.find({ isDeleted: false });
+      if (allOrderServices) {
+        return {
           status: 200,
           error: false,
           message: "List of All Orders",
           data: allOrderServices,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 400,
           error: true,
           message: "Failed to Load the Orders or no Orders present",
           data: null,
-        }
+        };
       }
     } catch (error) {
       console.log("Show Order Service Error", error);
@@ -219,20 +233,20 @@ module.exports = {
 
   async showAllOrderService() {
     try {
-      let allOrders = await orderModel.find()
-      if(allOrders){
-        return{
+      let allOrders = await orderModel.find();
+      if (allOrders) {
+        return {
           status: 200,
           error: false,
           message: "List of All Orders",
-          data: allOrders
-        }
+          data: allOrders,
+        };
       }
       return {
         status: 200,
         error: false,
         message: "Successfully Retrieved All Orders",
-        data: [], 
+        data: [],
       };
     } catch (error) {
       console.log("Show All Order Service Error", error);
@@ -247,23 +261,25 @@ module.exports = {
 
   async showSingleOrderService(params) {
     try {
-
       const userId = params.id;
-      const findSingleOrder = await orderModel.findOne({userId: userId, isDeleted: false});
-      if(findSingleOrder){
-        return{
+      const findSingleOrder = await orderModel.findOne({
+        userId: userId,
+        isDeleted: false,
+      });
+      if (findSingleOrder) {
+        return {
           status: 200,
           error: false,
           message: "Single Order Data: ",
           data: findSingleOrder,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 404,
           error: true,
           message: "Failed to find the Order",
           data: null,
-        }
+        };
       }
     } catch (error) {
       console.log("Show Single Order Service Error", error);
@@ -276,24 +292,27 @@ module.exports = {
     }
   },
 
-  async showOrdersByUserService(params){
-    try{
+  async showOrdersByUserService(params) {
+    try {
       const userId = params.id;
-      const findSingleOrder = await orderModel.find({userId: userId, isDeleted: false});
-      if(findSingleOrder){
-        return{
+      const findSingleOrder = await orderModel.find({
+        userId: userId,
+        isDeleted: false,
+      });
+      if (findSingleOrder) {
+        return {
           status: 200,
           error: false,
           message: "Orders Data: ",
           data: findSingleOrder,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 404,
           error: true,
           message: "Failed to find the Orders",
           data: null,
-        }
+        };
       }
     } catch (error) {
       console.log("Show Orders by UserId Service Error", error);
@@ -306,25 +325,28 @@ module.exports = {
     }
   },
 
-  async showAllPendingOrdersService () {
-    try{
-      const getPendingOrders = await orderModel.find({isPending: true, isDeleted: false});
-      if(getPendingOrders){
-        return{
+  async showAllPendingOrdersService() {
+    try {
+      const getPendingOrders = await orderModel.find({
+        isPending: true,
+        isDeleted: false,
+      });
+      if (getPendingOrders) {
+        return {
           status: 200,
           error: false,
           message: "All Pending Orders are Here",
           data: getPendingOrders,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 404,
           error: true,
           message: "No Pending Orders Found",
           data: null,
-        }
+        };
       }
-    }catch (error) {
+    } catch (error) {
       console.log("Show All Pending Orders Service Error", error);
       return {
         status: 500,
@@ -335,25 +357,29 @@ module.exports = {
     }
   },
 
-  async showAllDeliveredOrdersService () {
-    try{
-      const getDeliveredOrders = await orderModel.find({isDelivered: true, isDeleted: false});
-      if(getDeliveredOrders){
-        return{
+  async showAllDeliveredOrdersService() {
+    try {
+      const getDeliveredOrders = await orderModel.find({
+        isDelivered: true,
+        isPending: false,
+        isDeleted: false,
+      });
+      if (getDeliveredOrders) {
+        return {
           status: 200,
           error: false,
           message: "All Delivered Orders are Here",
           data: getDeliveredOrders,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 200,
           error: false,
           message: "No Delivered Orders Found",
           data: null,
-        }
+        };
       }
-    }catch (error) {
+    } catch (error) {
       console.log("Show All Delivered Orders Service Error", error);
       return {
         status: 500,
@@ -364,25 +390,25 @@ module.exports = {
     }
   },
 
-  async showAllDeletedOrdersService () {
-    try{
-      const getDeletedOrders = await orderModel.find({isDeleted: true});
-      if(getDeletedOrders){
-        return{
+  async showAllDeletedOrdersService() {
+    try {
+      const getDeletedOrders = await orderModel.find({ isDeleted: true });
+      if (getDeletedOrders) {
+        return {
           status: 200,
           error: false,
           message: "All Deleted Orders are Here",
           data: getDeletedOrders,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 200,
           error: false,
           message: "No Deleted Orders Found",
           data: null,
-        }
+        };
       }
-    }catch (error) {
+    } catch (error) {
       console.log("Show All Deleted Orders Service Error", error);
       return {
         status: 500,
@@ -393,12 +419,10 @@ module.exports = {
     }
   },
 
-
   //Filter By Date//
-  async showAllTodayOrdersService () {
-    try{
-     
-    }catch (error) {
+  async showAllTodayOrdersService() {
+    try {
+    } catch (error) {
       console.log("Show All Today Orders Service Error", error);
       return {
         status: 500,
@@ -409,43 +433,44 @@ module.exports = {
     }
   },
 
-
-  async pendingOrderService(params){
-    try{
+  async pendingOrderService(params) {
+    try {
       let orderId = params.id;
-      const existsOrder = await orderModel.findOne({_id: orderId, isDeleted: false});
-      if(!existsOrder){
-        return{
+      const existsOrder = await orderModel.findOne({
+        _id: orderId,
+        isDeleted: false,
+      });
+      if (!existsOrder) {
+        return {
           status: 404,
           error: true,
           message: `Order of ${orderId} not found`,
           data: null,
-        }
+        };
       }
 
       const shiftOrderToPending = await orderModel.updateOne(
-        {_id: orderId},
-        {isPending: true},
-        {new: true},
+        { _id: orderId },
+        { isPending: true },
+        { new: true }
       );
 
-      if(shiftOrderToPending){
-        return{
+      if (shiftOrderToPending) {
+        return {
           status: 200,
           error: false,
           message: `Successfully Placed the order of ${checkOrderExists.productName} and its pending`,
           data: shiftOrderToPending,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 400,
           error: true,
           message: `Failed to Accept the Order of ${orderId}`,
           data: null,
-        }
+        };
       }
-
-    }catch (error) {
+    } catch (error) {
       console.log("Accept/Pending Order Service Error", error);
       return {
         status: 500,
@@ -456,36 +481,42 @@ module.exports = {
     }
   },
 
-  async refundedOrderService(params){
-    try{
+  async refundedOrderService(params) {
+    try {
       const userId = params.id;
-      const checkUserExists = await userModel.findOne({_id: userId, isDeleted: false});
-      if(!checkUserExists){
-        return{
+      const checkUserExists = await userModel.findOne({
+        _id: userId,
+        isDeleted: false,
+      });
+      if (!checkUserExists) {
+        return {
           status: 404,
           error: true,
-          message: 'User Not Found',
+          message: "User Not Found",
           data: null,
-        }
+        };
       }
 
-      const getAllRefundedOrders = await orderModel.find({_id: userId, isDeleted: true});
-      if(getAllRefundedOrders){
-        return{
+      const getAllRefundedOrders = await orderModel.find({
+        _id: userId,
+        isDeleted: true,
+      });
+      if (getAllRefundedOrders) {
+        return {
           status: 200,
           error: false,
           message: "Here is the Refunded Orders",
           data: getAllRefundedOrders,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 400,
           error: true,
           message: "Failed to Fetch the Refunded Products",
           data: null,
-        }
+        };
       }
-    }catch (error) {
+    } catch (error) {
       console.log("Refunded Order Service Error", error);
       return {
         status: 500,
@@ -496,42 +527,44 @@ module.exports = {
     }
   },
 
-  async cancelledOrderService(params){
-    try{
+  async cancelledOrderService(params) {
+    try {
       let orderId = params.id;
-      const existsOrder = await orderModel.findOne({_id: orderId, isDeleted: false});
-      if(!existsOrder){
-        return{
+      const existsOrder = await orderModel.findOne({
+        _id: orderId,
+        isDeleted: false,
+      });
+      if (!existsOrder) {
+        return {
           status: 404,
           error: true,
           message: `Order of ${orderId} not found`,
           data: null,
-        }
+        };
       }
 
       const shiftOrderToCancelled = await orderModel.updateOne(
-        {_id: orderId},
-        {isConfirmed: false, isPending: false, isCancelled: true},
-        {new: true},
+        { _id: orderId },
+        { isConfirmed: false, isPending: false, isCancelled: true },
+        { new: true }
       );
 
-      if(shiftOrderToCancelled){
-        return{
+      if (shiftOrderToCancelled) {
+        return {
           status: 200,
           error: false,
           message: `Successfully Cancelled the Order of ${checkOrderExists.productName}`,
           data: shiftOrderToCancelled,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 400,
           error: true,
           message: `Failed to Cancel the Order of ${orderId}`,
           data: null,
-        }
+        };
       }
-
-    }catch (error) {
+    } catch (error) {
       console.log("Cancel Order Service Error", error);
       return {
         status: 500,
@@ -542,42 +575,44 @@ module.exports = {
     }
   },
 
-  async confirmOrderService(params){
-    try{
+  async confirmOrderService(params) {
+    try {
       let orderId = params.id;
-      const existsOrder = await orderModel.findOne({_id: orderId, isDeleted: false});
-      if(!existsOrder){
-        return{
+      const existsOrder = await orderModel.findOne({
+        _id: orderId,
+        isDeleted: false,
+      });
+      if (!existsOrder) {
+        return {
           status: 404,
           error: true,
           message: `Order of ${orderId} not found`,
           data: null,
-        }
+        };
       }
 
       const shiftOrderToConfirm = await orderModel.updateOne(
-        {_id: orderId},
-        {isConfirmed: true, isPending: false},
-        {new: true},
+        { _id: orderId },
+        { isConfirmed: true, isPending: false },
+        { new: true }
       );
 
-      if(shiftOrderToConfirm){
-        return{
+      if (shiftOrderToConfirm) {
+        return {
           status: 200,
           error: false,
           message: `Successfully Delivered the Order of ${checkOrderExists.productName}`,
           data: shiftOrderToConfirm,
-        }
-      }else{
-        return{
+        };
+      } else {
+        return {
           status: 400,
           error: true,
           message: `Failed to Deliver the Order of ${orderId}`,
           data: null,
-        }
+        };
       }
-
-    }catch (error) {
+    } catch (error) {
       console.log("Confirm Order Service Error", error);
       return {
         status: 500,

@@ -461,7 +461,6 @@ module.exports = {
       let userId = data.id;
       const userDetails = await userModels.findOne({
         _id: userId,
-        isDeleted: false,
       });
       if (userDetails) {
         return {
@@ -862,7 +861,6 @@ module.exports = {
           userId: userStringId,
           isDeleted: false,
         });
-        
 
         if (userDetails && customerDetails) {
           return {
