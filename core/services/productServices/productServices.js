@@ -232,7 +232,10 @@ module.exports = {
 
   async getAllDeletedProductSrvc() {
     try {
-      const result = await productModels.find({ isDeleted: true });
+      const result = await productModels.find({
+        isDeleted: true,
+        isActive: false,
+      });
       if (result.length === 0) {
         return {
           status: 200,
@@ -369,6 +372,70 @@ module.exports = {
             stats: 400,
             error: true,
             message: "Failed to Delete the Product's Stock",
+            data: null,
+          };
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      return {
+        status: 409,
+        error: true,
+        message: "Delete Products Services Failed",
+        data: error,
+      };
+    }
+  },
+
+  async activateProductService(data) {
+    try {
+      const prodId = data.id;
+
+      if (!prodId) {
+        return {
+          status: 409,
+          error: true,
+          message: "Input Feild Missing",
+          data: null,
+        };
+      }
+
+      let prodExists = await productModels.findOne({ _id: prodId });
+      if (!prodExists) {
+        return {
+          status: 404,
+          error: true,
+          message: "Product Not Found",
+          data: null,
+        };
+      }
+
+      let prodDelete = await productModels.findOneAndUpdate(
+        { _id: prodId },
+        { isDeleted: false, isActive: true },
+        { new: true }
+      );
+
+      if (prodDelete) {
+        let stockDelete = await stockModel.findOneAndUpdate(
+          { productId: prodId },
+          { isDelete: false, isActive: true },
+          { new: true }
+        );
+
+        if (stockDelete) {
+          return {
+            status: 200,
+            error: false,
+            message: "Successfully Activated the Product and Its Stock",
+            data: stockDelete,
+            prodDelete,
+          };
+        } else {
+          return {
+            stats: 400,
+            error: true,
+            message: "Failed to Activate the Product's Stock",
             data: null,
           };
         }

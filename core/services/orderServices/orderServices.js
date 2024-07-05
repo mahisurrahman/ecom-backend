@@ -390,6 +390,40 @@ module.exports = {
     }
   },
 
+  async showAllCancelledOrdersService() {
+    try {
+      const getDeliveredOrders = await orderModel.find({
+        isCanceled: true,
+        isPending: false,
+        isDeleted: false,
+        isDelivered: false,
+      });
+      if (getDeliveredOrders) {
+        return {
+          status: 200,
+          error: false,
+          message: "All Cancelled Orders are Here",
+          data: getDeliveredOrders,
+        };
+      } else {
+        return {
+          status: 200,
+          error: false,
+          message: "No Cancelled Orders Found",
+          data: null,
+        };
+      }
+    } catch (error) {
+      console.log("Show All Cancelled Orders Service Error", error);
+      return {
+        status: 500,
+        error: true,
+        message: "Show All Cancelled Orders Service Error",
+        data: error,
+      };
+    }
+  },
+
   async showAllDeletedOrdersService() {
     try {
       const getDeletedOrders = await orderModel.find({ isDeleted: true });
@@ -545,7 +579,11 @@ module.exports = {
 
       const shiftOrderToCancelled = await orderModel.updateOne(
         { _id: orderId },
-        { isConfirmed: false, isPending: false, isCancelled: true },
+        {
+          isPending: false,
+          isCancelled: true,
+          isDelivered: false,
+        },
         { new: true }
       );
 
@@ -553,7 +591,7 @@ module.exports = {
         return {
           status: 200,
           error: false,
-          message: `Successfully Cancelled the Order of ${checkOrderExists.productName}`,
+          message: `Successfully Cancelled the Order`,
           data: shiftOrderToCancelled,
         };
       } else {

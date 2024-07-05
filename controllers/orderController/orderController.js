@@ -93,18 +93,19 @@ module.exports = {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
-      newError.message = "Show Orders By User Id Controller Internal Server Error";
+      newError.message =
+        "Show Orders By User Id Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
   },
 
-  async showAllPendingOrdersController (req, res){
-    try{
+  async showAllPendingOrdersController(req, res) {
+    try {
       let response = await orderServices.showAllPendingOrdersService();
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -115,27 +116,43 @@ module.exports = {
     }
   },
 
-  async showAllDeliveredOrdersController (req, res){
-    try{
+  async showAllDeliveredOrdersController(req, res) {
+    try {
       let response = await orderServices.showAllDeliveredOrdersService();
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
-      newError.message = "Show Delivered Orders Controller Internal Server Error";
+      newError.message =
+        "Show Delivered Orders Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
   },
 
+  async showAllCancelledOrdersController(req, res) {
+    try {
+      let response = await orderServices.showAllCancelledOrdersService();
+      return res.status(response.status).send(response);
+    } catch (error) {
+      console.error(error);
+      const newError = createErrorMessage();
+      newError.data = error;
+      newError.message =
+        "Show Cacelled Orders Controller Internal Server Error";
+      newError.status = statusCode.internalServerError;
+      newError.error = true;
+      return res.status(newError.status).json(newError);
+    }
+  },
 
-  async showAllDeletedOrdersController (req, res){
-    try{
+  async showAllDeletedOrdersController(req, res) {
+    try {
       let response = await orderServices.showAllDeletedOrdersService();
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -146,12 +163,11 @@ module.exports = {
     }
   },
 
-
-  async showAllTodayOrdersController (req, res){
-    try{
+  async showAllTodayOrdersController(req, res) {
+    try {
       // let response = await orderServices. ;
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -161,7 +177,6 @@ module.exports = {
       return res.status(newError.status).json(newError);
     }
   },
-
 
   async deleteOrderController(req, res) {
     try {
@@ -178,11 +193,11 @@ module.exports = {
     }
   },
 
-  async pendingOrderController (req, res){
-    try{
+  async pendingOrderController(req, res) {
+    try {
       let response = await orderServices.pendingOrderService(req.params);
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -193,11 +208,11 @@ module.exports = {
     }
   },
 
-  async confirmedOrderController (req, res){
-    try{
+  async confirmedOrderController(req, res) {
+    try {
       let response = await orderServices.confirmOrderService(req.params);
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -216,18 +231,19 @@ module.exports = {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
-      newError.message = "Show Refunded Orders By User Id Controller Internal Server Error";
+      newError.message =
+        "Show Refunded Orders By User Id Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
   },
 
-  async cancelledOrderController (req, res){
-    try{
+  async cancelledOrderController(req, res) {
+    try {
       let response = await orderServices.cancelledOrderService(req.params);
       return res.status(response.status).send(response);
-    }catch (error) {
+    } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
       newError.data = error;
@@ -236,5 +252,5 @@ module.exports = {
       newError.error = true;
       return res.status(newError.status).json(newError);
     }
-  }
+  },
 };

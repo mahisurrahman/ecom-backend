@@ -8,6 +8,7 @@ router.get("/src/all", productController.idealGetAllProds);
 router.get("/src/byid/:id", productController.showSingleProdController);
 router.get("/deleted/src", productController.getAllDeletedProductsControllers);
 router.get("/del/:id", productController.productDeleteController);
+router.get("/actv/:id", productController.productAcitvateController);
 router.post("/upt/:id", productController.productUpdateController);
 router.get("/src/popular/all");
 router.post(

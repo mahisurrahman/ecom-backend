@@ -91,6 +91,21 @@ const productDeleteController = async (req, res) => {
   }
 };
 
+const productAcitvateController = async (req, res) => {
+  try {
+    let response = await productServices.activateProductService(req.params);
+    return res.status(response.status).send(response);
+  } catch (error) {
+    console.log(error);
+    return res.send({
+      status: statusCode.internalServerError,
+      error: true,
+      message: "Activate Single Products Controller Failed",
+      data: error,
+    });
+  }
+};
+
 const productUpdateController = async (req, res) => {
   try {
     let response = await productServices.updateProductInfoService(
@@ -132,6 +147,7 @@ module.exports = {
   showSingleProdController,
   popularProductController,
   productDeleteController,
+  productAcitvateController,
   productUpdateController,
   getAllDeletedProductsControllers,
 };
