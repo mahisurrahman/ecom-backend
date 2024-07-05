@@ -116,6 +116,22 @@ module.exports = {
     }
   },
 
+  async showAllConfirmedOrdersController(req, res) {
+    try {
+      let response = await orderServices.showAllConfirmedOrdersService();
+      return res.status(response.status).send(response);
+    } catch (error) {
+      console.error(error);
+      const newError = createErrorMessage();
+      newError.data = error;
+      newError.message =
+        "Show Confirmed Orders Controller Internal Server Error";
+      newError.status = statusCode.internalServerError;
+      newError.error = true;
+      return res.status(newError.status).json(newError);
+    }
+  },
+
   async showAllDeliveredOrdersController(req, res) {
     try {
       let response = await orderServices.showAllDeliveredOrdersService();

@@ -17,6 +17,7 @@ const {
   showAllDeletedOrdersController,
   showAllTodayOrdersController,
   showAllCancelledOrdersController,
+  showAllConfirmedOrdersController,
 } = require("../../controllers/orderController/orderController");
 
 router.post("/crt", createOrderController);
@@ -30,6 +31,7 @@ router.get("/src/byid/:id", showSingleOrderController);
 router.get("/src/user/byid/:id", showOrdersByUserController);
 
 router.get("/src/pending/all", showAllPendingOrdersController);
+router.get("/src/confirmed/all", showAllConfirmedOrdersController);
 router.get("/src/delivered/all", showAllDeliveredOrdersController);
 router.get("/src/cancel/all", showAllCancelledOrdersController);
 router.get("/src/deleted/all", showAllDeletedOrdersController);

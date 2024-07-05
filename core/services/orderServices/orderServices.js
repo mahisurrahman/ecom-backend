@@ -357,6 +357,40 @@ module.exports = {
     }
   },
 
+  async showAllConfirmedOrdersService() {
+    try {
+      const getPendingOrders = await orderModel.find({
+        isPending: false,
+        isDelivered: false,
+        isCanceled: false,
+        isDeleted: false,
+      });
+      if (getPendingOrders) {
+        return {
+          status: 200,
+          error: false,
+          message: "All Pending Orders are Here",
+          data: getPendingOrders,
+        };
+      } else {
+        return {
+          status: 404,
+          error: true,
+          message: "No Pending Orders Found",
+          data: null,
+        };
+      }
+    } catch (error) {
+      console.log("Show All Confirmed Orders Service Error", error);
+      return {
+        status: 500,
+        error: true,
+        message: "Show All Confirmed Orders Service Error",
+        data: error,
+      };
+    }
+  },
+
   async showAllDeliveredOrdersService() {
     try {
       const getDeliveredOrders = await orderModel.find({
@@ -639,7 +673,7 @@ module.exports = {
         return {
           status: 200,
           error: false,
-          message: `Successfully Delivered the Order of ${checkOrderExists.productName}`,
+          message: `Successfully Delivered the Order `,
           data: shiftOrderToConfirm,
         };
       } else {
