@@ -3,6 +3,8 @@ const router = express.Router();
 const productController = require("../../controllers/productController/productController");
 const multerMiddleware = require("../../middleware/multer.middleware");
 
+//Blank Commit//
+
 router.get("/src", productController.getAllProductsControllers);
 router.get("/src/all", productController.idealGetAllProds);
 router.get("/src/byid/:id", productController.showSingleProdController);
