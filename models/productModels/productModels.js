@@ -13,11 +13,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  productImg: {
-    type: Array,
-    default: null,
-    required: true,
-  },
   buyingPrice: {
     type: Number,
     required: true,

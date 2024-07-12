@@ -6,7 +6,6 @@ module.exports = {
   async createProductSrvc(data) {
     try {
       let thumbnail = null;
-      let images = [];
 
       const {
         productName,
@@ -19,7 +18,7 @@ module.exports = {
         stockQuantity,
       } = data.body;
 
-      const { productImg, productThumb } = data.files;
+      const { productThumb } = data.files;
 
       if (!productName) {
         return {
@@ -57,15 +56,6 @@ module.exports = {
         };
       }
 
-      if (!productImg) {
-        return {
-          status: 404,
-          error: true,
-          message: "Product Image field missing",
-          data: null,
-        };
-      }
-
       if (!buyingPrice) {
         return {
           status: 404,
@@ -94,14 +84,6 @@ module.exports = {
         };
       }
 
-      if (!sellerId) {
-        return {
-          status: 404,
-          error: true,
-          message: "Product Seller Id field missing",
-          data: null,
-        };
-      }
 
       if (buyingPrice < 0) {
         return {
@@ -131,24 +113,13 @@ module.exports = {
         const prodThumb = data.files.productThumb;
         prodThumb.map((thumb) => {
           let imageName = thumb.path.split("images/");
-          // console.log(imageName[1], "Hellllooos mac");
           thumbnail = imageName[1];
-        });
-      }
-
-      //Product Images//
-      if (data.files.productImg) {
-        const prodImages = data.files.productImg;
-        prodImages.map((image) => {
-          let imageTitle = image.path.split("images/")[1];
-          images.push(imageTitle);
         });
       }
 
       const createProduct = await productModels.create({
         productName,
         productDescription,
-        productImg: images,
         buyingPrice,
         sellingPrice,
         categoryId,
@@ -185,7 +156,7 @@ module.exports = {
         if (createStock && createProduct) {
           return {
             status: statusCode.created,
-            error: true,
+            error: false,
             data: createProduct,
             message: "product and Stock created successfully",
           };
