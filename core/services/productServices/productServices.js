@@ -84,7 +84,6 @@ module.exports = {
         };
       }
 
-
       if (buyingPrice < 0) {
         return {
           status: 409,
@@ -196,6 +195,38 @@ module.exports = {
         status: 409,
         error: true,
         message: "Get All Products Services Failed",
+        data: error,
+      };
+    }
+  },
+
+  async getAllCategorisedProductSrvc(params) {
+    try {
+      const catId = params.id;
+      const result = await productModels.find({
+        categoryId: catId,
+        isDeleted: false,
+      });
+      if (result.length === 0) {
+        return {
+          status: 200,
+          error: false,
+          message: "No Products Listed",
+          data: null,
+        };
+      }
+      return {
+        status: 200,
+        error: false,
+        message: "Shown All the Categorised Products",
+        data: result,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        status: 409,
+        error: true,
+        message: "Get All Category Wise Products Services Failed",
         data: error,
       };
     }

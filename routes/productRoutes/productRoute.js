@@ -8,6 +8,10 @@ const multerMiddleware = require("../../middleware/multer.middleware");
 router.get("/src", productController.getAllProductsControllers);
 router.get("/src/all", productController.idealGetAllProds);
 router.get("/src/byid/:id", productController.showSingleProdController);
+router.get(
+  "/src/category/:id",
+  productController.getAllCategorisedProductsControllers
+);
 router.get("/deleted/src", productController.getAllDeletedProductsControllers);
 router.get("/del/:id", productController.productDeleteController);
 router.get("/actv/:id", productController.productAcitvateController);

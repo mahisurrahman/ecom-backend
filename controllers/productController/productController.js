@@ -16,6 +16,23 @@ const getAllProductsControllers = async (req, res) => {
   }
 };
 
+const getAllCategorisedProductsControllers = async (req, res) => {
+  try {
+    let response = await productServices.getAllCategorisedProductSrvc(
+      req.params
+    );
+    return res.status(response.status).send(response);
+  } catch (error) {
+    console.log(error);
+    return res.send({
+      status: statusCode.internalServerError,
+      error: true,
+      message: "Get All Categorised Products Controller Failed",
+      data: error,
+    });
+  }
+};
+
 const getAllDeletedProductsControllers = async (req, res) => {
   try {
     let response = await productServices.getAllDeletedProductSrvc();
@@ -150,4 +167,5 @@ module.exports = {
   productAcitvateController,
   productUpdateController,
   getAllDeletedProductsControllers,
+  getAllCategorisedProductsControllers,
 };
