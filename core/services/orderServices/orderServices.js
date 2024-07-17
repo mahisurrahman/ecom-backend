@@ -110,6 +110,17 @@ module.exports = {
       });
 
       if (createOrder) {
+        let removeItemsFromCart = await cartModel.findOne({
+          _id: cartId,
+          isDeleted: false,
+        });
+        if (removeItemsFromCart) {
+          await cartModel.updateOne(
+            { _id: cartId },
+            { isActive: false, isDeleted: true },
+            { new: true }
+          );
+        }
         return {
           status: 200,
           error: false,
