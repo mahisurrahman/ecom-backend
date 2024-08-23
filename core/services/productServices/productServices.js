@@ -1,11 +1,12 @@
 const productModels = require("../../../models/productModels/productModels");
 const statusCode = require("../../status/statusCode");
 const stockModel = require("../../../models/stockModels/stockModel");
+const path = require('path');
 
 module.exports = {
   async createProductSrvc(data) {
     try {
-      let thumbnail = null;
+      let thumbnail = null; 
 
       const {
         productName,
@@ -17,9 +18,9 @@ module.exports = {
         sellerId,
         stockQuantity,
       } = data.body;
-
-      const { productThumb } = data.files;
-
+  
+      const { productThumb } = data.files; 
+  
       if (!productName) {
         return {
           status: 404,
@@ -28,7 +29,7 @@ module.exports = {
           data: null,
         };
       }
-
+  
       if (!productDescription) {
         return {
           status: 404,
@@ -37,7 +38,7 @@ module.exports = {
           data: null,
         };
       }
-
+  
       if (!sellingPrice) {
         return {
           status: 404,
@@ -46,7 +47,7 @@ module.exports = {
           data: null,
         };
       }
-
+  
       if (!productThumb) {
         return {
           status: 404,
@@ -55,7 +56,7 @@ module.exports = {
           data: null,
         };
       }
-
+  
       if (!buyingPrice) {
         return {
           status: 404,
@@ -64,8 +65,7 @@ module.exports = {
           data: null,
         };
       }
-
-      //  checking out
+  
       if (!categoryId) {
         return {
           status: 404,
@@ -74,7 +74,7 @@ module.exports = {
           data: null,
         };
       }
-
+  
       if (!stockQuantity) {
         return {
           status: 404,
@@ -83,22 +83,22 @@ module.exports = {
           data: null,
         };
       }
-
+  
       if (buyingPrice < 0) {
         return {
           status: 409,
           error: true,
-          message: "Buying cannot be below 0",
+          message: "Buying price cannot be below 0",
           data: null,
         };
       }
-
+  
       const existsProductName = await productModels.findOne({
         productName: productName,
         isDeleted: false,
       });
-
-      if (existsProductName !== null) {
+  
+      if (existsProductName) {
         return {
           status: 409,
           error: true,
@@ -106,16 +106,15 @@ module.exports = {
           data: null,
         };
       }
-
-      //Product Thumbnail//
-      if (data.files.productThumb) {
-        const prodThumb = data.files.productThumb;
-        prodThumb.map((thumb) => {
-          let imageName = thumb.path.split("images/");
-          thumbnail = imageName[1];
-        });
+  
+      if (productThumb) {
+        const prodThumb = Array.isArray(productThumb) ? productThumb : [productThumb]; // Ensure it's always an array
+  
+        const imageName = path.normalize(prodThumb[0].path).split(path.sep).pop(); 
+        thumbnail = imageName; 
       }
-
+  
+      // Create the product in the database
       const createProduct = await productModels.create({
         productName,
         productDescription,
@@ -123,48 +122,44 @@ module.exports = {
         sellingPrice,
         categoryId,
         sellerId,
-        productThumb: thumbnail,
+        productThumb: thumbnail, 
       });
-
+  
       if (!createProduct) {
         return {
-          status: statusCode.created,
+          status: 500,
           error: true,
-          data: createProduct,
-          message: "product failed to create",
+          data: null,
+          message: "Product failed to create",
         };
       }
-
-      if (createProduct) {
-        const prodId = createProduct._id.toString();
-
-        const createStock = await stockModel.create({
-          stockQTY: stockQuantity,
-          productId: prodId,
-        });
-
-        if (!createStock) {
-          return {
-            status: statusCode.created,
-            error: true,
-            data: createProduct,
-            message: "stock failed to create",
-          };
-        }
-
-        if (createStock && createProduct) {
-          return {
-            status: statusCode.created,
-            error: false,
-            data: createProduct,
-            message: "product and Stock created successfully",
-          };
-        }
+  
+      const prodId = createProduct._id.toString();
+  
+      const createStock = await stockModel.create({
+        stockQTY: stockQuantity,
+        productId: prodId,
+      });
+  
+      if (!createStock) {
+        return {
+          status: 500,
+          error: true,
+          data: createProduct,
+          message: "Stock failed to create",
+        };
       }
-    } catch (error) {
-      console.log(error);
+  
       return {
-        status: 409,
+        status: 201, 
+        error: false,
+        data: createProduct,
+        message: "Product and Stock created successfully",
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        status: 500,
         error: true,
         message: "Create Products Services Failed",
         data: null,
