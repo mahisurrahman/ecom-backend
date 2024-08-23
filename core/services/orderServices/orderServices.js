@@ -7,6 +7,8 @@ const customerModel = require("../../../models/customerModels/customerModel");
 
 module.exports = {
   async createOrderService(data) {
+
+    console.log("cart items", data);
     try {
       const cartId = data.cartId;
       const checkCartExists = await cartModel.findOne({
