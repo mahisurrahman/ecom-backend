@@ -327,6 +327,64 @@ module.exports = {
     }
   },
 
+async updateUserPasswordSrvc(body, params) {
+  try {
+   const userId= params.id;
+   const newPassword = body.newPassword;
+
+    // Find the user by ID
+    const user = await userModels.findOne({_id: userId, isDeleted: false});
+    if (!user) {
+      return {
+        status: 404,
+        error: true,
+        message: "User not found",
+        data: null,
+      };
+    }
+
+    // Encrypt the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update the user's password in the database
+    const updateUserPassword = await userModels.findOneAndUpdate(
+      {_id: userId, isDeleted:false},
+      {
+        userPass: hashedPassword,
+      },
+      {new: true},
+    );
+
+    if(updateUserPassword){
+      return {
+        status: 200,
+        error: false,
+        message: "Password updated successfully",
+        data: updateUserPassword,
+      };
+    }else{
+      return {
+        status: 400,
+        error: true,
+        message: "Failed to Change the Password",
+        data: null,
+      }
+    }
+
+    
+  } catch (error) {
+    console.log("Update User Password Service Error", error);
+    return {
+      status: 500,
+      error: true,
+      message: "Update User Password Service Error",
+      data: error,
+    };
+  }
+},
+
+
   async getAllUsersIdeal() {
     try {
       const allUserDetails = await userModels.find();
@@ -506,18 +564,15 @@ module.exports = {
 
   async updateUserInformation(body, params) {
     try {
-      // console.log(body, "Updated DATA");
-      // console.log(params.id, "User Id");
+      console.log("Body data", body);
       let userId = params.id;
       let updateInfo = body;
       let findUsers = null;
 
       findUsers = await userModels.findOne({ _id: userId, isDeleted: false });
-      // console.log(findUsers);
 
       if (findUsers) {
         if (updateInfo.userName) {
-          // console.log("Hit");
           const result = await userModels.updateOne(
             { _id: userId },
             { userName: updateInfo.userName },

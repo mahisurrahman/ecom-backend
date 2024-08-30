@@ -12,6 +12,7 @@ const {
   getAllSellersIdeal,
   getAllUsersIdeal,
   getSingleUser,
+  updateUserPasswordSrvc,
 } = require("../../core/services/userServices/index");
 const statusCode = require("../../core/status/statusCode");
 
@@ -129,6 +130,21 @@ module.exports = {
       const newError = createErrorMessage();
       newError.data = error;
       newError.message = "User Infomation Update Controller Internal Server Error";
+      newError.status = statusCode.internalServerError;
+      newError.error = true;
+      return res.status(newError.status).json(newError);
+    }
+  },
+
+  async updateUserPasswordController(req, res){
+    try{
+      let response = await updateUserPasswordSrvc(req.body, req.params);
+      return res.status(response.status).send(response);
+    }catch(error){
+      console.error(error);
+      const newError = createErrorMessage();
+      newError.data = error;
+      newError.message = "User Password Update Controller Internal Server Error";
       newError.status = statusCode.internalServerError;
       newError.error = true;
       return res.status(newError.status).json(newError);

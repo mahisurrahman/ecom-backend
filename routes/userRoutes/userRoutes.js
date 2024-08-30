@@ -21,5 +21,6 @@ router.get("/seller/src", userControllers.showAllSellers);
 router.get("/seller/src/all", userController.showAllSellersIdeal);
 router.get("/del/:id", userControllers.removeSingleUser);
 router.post("/upt/:id", userControllers.userInfoUpdate);
+router.post("/password/upt/:id", userControllers.updateUserPasswordController);
 
 module.exports = router;
