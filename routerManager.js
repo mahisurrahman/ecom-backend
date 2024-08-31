@@ -10,6 +10,7 @@ const customerReceiptRoute = require("./routes/customerReceiptRoutes/customerRec
 const ratingRoute = require("./routes/ratingRoutes/ratingRoutes.js");
 const cartRoute = require("./routes/cartRoutes/cartRoutes.js");
 const orderRoute = require("./routes/orderRoutes/orderRoutes.js");
+const discountRoute = require ("./routes/discountRoutes/discountRoutes.js");
 
 const routerManager = () => {
   //Home Route//
@@ -44,6 +45,9 @@ const routerManager = () => {
 
   //Order Routes//
   app.use("/api/v1/orders", orderRoute);
+
+  //Discount Routes//
+  app.use("/api/v1/discount", discountRoute);
 };
 
 module.exports = routerManager;
