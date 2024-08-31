@@ -53,7 +53,8 @@ module.exports = {
           const updateProductSellingPrice = await productModel.findOneAndUpdate(
             { _id: productId },
             {
-              sellingPrice: finalAmnt,
+              sellingPrice: finalAmnt.toFixed(2),
+              discount: discountNumber,
             },
             { new: true }
           );
@@ -196,9 +197,9 @@ module.exports = {
 
   async removeDiscountService(params) {
     try {
-        const discountId = params.id;
+        const productId = params.id;
         const removeDscnt = await discountModel.findOneAndUpdate(
-            {_id: discountId},
+            {productId: productId, isDeleted: false},
             {
                 isActive: false, isDeleted: true,
             },
