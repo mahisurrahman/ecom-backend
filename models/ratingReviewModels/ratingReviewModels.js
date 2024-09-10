@@ -6,14 +6,22 @@ var ratingReviewSchema = new mongoose.Schema({
     ref: "Users",
     required: true,
   },
+  userFullName:{
+    type: String,
+    required: true,
+  },
   productId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Products",
     required: true,
   },
+  productName:{
+    type: String,
+    required: true,
+  },
   rating: {
     type: Number,
-    required: true,
+    default: 0,
   },
   review: {
     type: String,
