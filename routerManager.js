@@ -7,7 +7,7 @@ const stockRoute = require("./routes/stockRoutes/stockRoutes.js");
 const salesRoute = require("./routes/salesRoutes/salesRoutes.js");
 const receiptsRoute = require("./routes/receiptRoutes/receiptRoutes.js");
 const customerReceiptRoute = require("./routes/customerReceiptRoutes/customerReceiptsRoutes.js");
-const ratingRoute = require("./routes/ratingRoutes/ratingRoutes.js");
+const ratingReviewRoutes = require("./routes/ratingReviewRoutes/ratingReviewRoutes");
 const cartRoute = require("./routes/cartRoutes/cartRoutes.js");
 const orderRoute = require("./routes/orderRoutes/orderRoutes.js");
 const discountRoute = require ("./routes/discountRoutes/discountRoutes.js");
@@ -29,7 +29,7 @@ const routerManager = () => {
   app.use("/api/v1/stocks", stockRoute);
 
   //Ratings Route//
-  app.use("/api/v1/ratings", ratingRoute);
+  app.use("/api/v1/ratings", ratingReviewRoutes);
 
   //Sales Route//
   app.use("/api/v1/sales", salesRoute);
