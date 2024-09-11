@@ -149,7 +149,22 @@ module.exports = {
 
     async getAllRatingReviewService() {
         try {
-
+            const getAllReviews = await ratingReviewModel.find({isDeleted: false});
+            if(getAllReviews){
+                return{
+                    status: 200,
+                    error: false,
+                    message: "Here is the List of All the Reviews",
+                    data: getAllReviews
+                }
+            }else{
+                return{
+                    status: 404,
+                    error: true,
+                    message: "No Reviews Found",
+                    data: null
+                }
+            }
         } catch (error) {
             console.log("Get All Rating Review Service Error", error);
             return {
