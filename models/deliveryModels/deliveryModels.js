@@ -9,6 +9,10 @@ var deliverCharge = new mongoose.Schema({
         type: String,
         required: true,
     },
+    deliveryShiftNumber: {
+        type: Number,
+        required :true,
+    },
     status: {
         type: Boolean,
         default: true,
