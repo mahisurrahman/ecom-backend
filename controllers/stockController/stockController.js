@@ -26,7 +26,7 @@ module.exports = {
     try {
       let response = await createStockService(req.body);
       return res.status(response.status).send(response);
-      // //console.log(req.body);
+      // console.log(req.body);
     } catch (error) {
       console.error(error);
       const newError = createErrorMessage();
@@ -55,7 +55,7 @@ module.exports = {
 
   async showSingleStockController(req, res) {
     try {
-      // //console.log(req.params);
+      // console.log(req.params);
       let response = await showSingleStockService(req.params);
       return res.status(response.status).send(response);
     } catch (error) {

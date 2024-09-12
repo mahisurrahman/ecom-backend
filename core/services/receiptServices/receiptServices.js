@@ -28,7 +28,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -57,7 +57,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -70,13 +70,13 @@ module.exports = {
   async createReceiptsServices(data) {
     try {
       const { salesId } = data;
-      //console.log(salesId, "All Sales Id");
+      console.log(salesId, "All Sales Id");
 
       let productQtySoldMap = {};
       let productSoldName = {};
       for (sale of salesId) {
         const salesDetails = await salesModel.findOne({ _id: sale });
-        // //console.log(salesDetails);
+        // console.log(salesDetails);
         if (productQtySoldMap[salesDetails.productId]) {
           productQtySoldMap[salesDetails.productId] += salesDetails.qtySold;
         }
@@ -92,12 +92,12 @@ module.exports = {
           receiptInfo.push({...productDetails,sold:value})
         }
       
-      // //console.log(receiptInfo,"info");
-      // //console.log( Object.entries(productQtySoldMap));
+      // console.log(receiptInfo,"info");
+      // console.log( Object.entries(productQtySoldMap));
 
 
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,

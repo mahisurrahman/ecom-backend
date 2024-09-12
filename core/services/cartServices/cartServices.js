@@ -141,7 +141,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      //console.log("Create Cart Service Error", error);
+      console.log("Create Cart Service Error", error);
       return {
         status: 500,
         error: true,
@@ -170,7 +170,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Show Cart Service Error", error);
+      console.log("Show Cart Service Error", error);
       return {
         status: 500,
         error: true,
@@ -199,7 +199,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Show All Cart Service Error", error);
+      console.log("Show All Cart Service Error", error);
       return {
         status: 500,
         error: true,
@@ -231,7 +231,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Show All Cart Service Error", error);
+      console.log("Show All Cart Service Error", error);
       return {
         status: 500,
         error: true,
@@ -264,7 +264,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Show Single Cart Service Error", error);
+      console.log("Show Single Cart Service Error", error);
       return {
         status: 500,
         error: true,
@@ -277,7 +277,7 @@ module.exports = {
   async updateCartService(data, params) {
     try {
       let cartId = params.id;
-      // //console.log(cartId);
+      // console.log(cartId);
       const cartItemExists = await cartModel.findOne({
         _id: cartId,
         isDeleted: false,
@@ -340,7 +340,7 @@ module.exports = {
       }
 
       if (data.quantity) {
-        //console.log(data.quantity);
+        console.log(data.quantity);
         let cartDetails = await cartModel.findOne({
           _id: cartId,
           isDeleted: false,
@@ -371,7 +371,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      //console.log("Update Cart Service Error", error);
+      console.log("Update Cart Service Error", error);
       return {
         status: 500,
         error: true,
@@ -454,7 +454,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Delete Cart Service Error", error);
+      console.log("Delete Cart Service Error", error);
       return {
         status: 500,
         error: true,
@@ -502,7 +502,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      //console.log("Delete Cart Service Error", error);
+      console.log("Delete Cart Service Error", error);
       return {
         status: 500,
         error: true,
@@ -624,7 +624,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Increase Quantity Cart Service Error", error);
+      console.log("Increase Quantity Cart Service Error", error);
       return {
         status: 500,
         error: true,
@@ -713,7 +713,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Decrease Quantity Cart Service Error", error);
+      console.log("Decrease Quantity Cart Service Error", error);
       return {
         status: 500,
         error: true,

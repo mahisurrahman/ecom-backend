@@ -54,7 +54,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Create Category Service Error", error);
+      console.log("Create Category Service Error", error);
       return {
         status: 500,
         error: true,
@@ -131,7 +131,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Create Sub Category Service Error", error);
+      console.log("Create Sub Category Service Error", error);
       return {
         status: 500,
         error: true,
@@ -160,7 +160,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Show All Category Service Error", error);
+      console.log("Show All Category Service Error", error);
       return {
         status: 500,
         error: true,
@@ -189,7 +189,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Show All Sub-Category Service Error", error);
+      console.log("Show All Sub-Category Service Error", error);
       return {
         status: 500,
         error: true,
@@ -221,7 +221,7 @@ module.exports = {
         data: catDetails,
       };
     } catch (error) {
-      //console.log("Show Single Category Service Error", error);
+      console.log("Show Single Category Service Error", error);
       return {
         status: 500,
         error: true,
@@ -253,7 +253,7 @@ module.exports = {
         data: catDetails,
       };
     } catch (error) {
-      //console.log("Show Single Sub-Category Service Error", error);
+      console.log("Show Single Sub-Category Service Error", error);
       return {
         status: 500,
         error: true,
@@ -305,7 +305,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Delete Category Service Error", error);
+      console.log("Delete Category Service Error", error);
       return {
         status: 500,
         error: true,
@@ -356,7 +356,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Delete Sub-Category Service Error", error);
+      console.log("Delete Sub-Category Service Error", error);
       return {
         status: 500,
         error: true,

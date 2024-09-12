@@ -44,7 +44,7 @@ module.exports = {
           isDeleted: false,
         });
         if (getOldProdSellingPrice) {
-          //console.log(getOldProdSellingPrice, "Get Old Prod Selling Price");
+          console.log(getOldProdSellingPrice, "Get Old Prod Selling Price");
           const oldPrice = getOldProdSellingPrice.sellingPrice;
           const percntDerive = discountNumber / 100;
           const discountAmnt = percntDerive * oldPrice;
@@ -76,7 +76,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log("Create Discount Service Error", error);
+      console.log("Create Discount Service Error", error);
       return {
         status: 400,
         error: true,
@@ -116,7 +116,7 @@ module.exports = {
             }
         }
     } catch (error) {
-      //console.log("Get Single Discount Service Error", error);
+      console.log("Get Single Discount Service Error", error);
       return {
         status: 400,
         error: true,
@@ -146,7 +146,7 @@ module.exports = {
         }
 
     } catch (error) {
-      //console.log("Get All Discount Service Error", error);
+      console.log("Get All Discount Service Error", error);
       return {
         status: 400,
         error: true,
@@ -185,7 +185,7 @@ module.exports = {
             }
         }
     } catch (error) {
-      //console.log("Update Discount Service Error", error);
+      console.log("Update Discount Service Error", error);
       return {
         status: 400,
         error: true,
@@ -222,7 +222,7 @@ module.exports = {
             }
         }
     } catch (error) {
-      //console.log("Remove Discount Service Error", error);
+      console.log("Remove Discount Service Error", error);
       return {
         status: 400,
         error: true,

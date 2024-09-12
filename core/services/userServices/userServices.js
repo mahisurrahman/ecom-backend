@@ -230,7 +230,7 @@ module.exports = {
         data: null,
       };
     } catch (error) {
-      //console.log("Create User Service Error", error);
+      console.log("Create User Service Error", error);
       return {
         status: 500,
         error: true,
@@ -243,7 +243,7 @@ module.exports = {
   async loginUserSrvc(data) {
     try {
       const { email, password } = data;
-      // //console.log(email, "email");
+      // console.log(email, "email");
       if (!email || !password) {
         return {
           status: 404,
@@ -253,9 +253,9 @@ module.exports = {
         };
       }
 
-      // //console.log(email,password,"print");
+      // console.log(email,password,"print");
       const user = await userModels.findOne({ userEmail: email });
-      // //console.log(user, "hit or not");
+      // console.log(user, "hit or not");
       if (!user) {
         return {
           status: 404,
@@ -266,7 +266,7 @@ module.exports = {
       }
 
       const match = await bcrypt.compare(password, user.userPass);
-      // //console.log(match, "match results");
+      // console.log(match, "match results");
       if (!match) {
         return {
           status: 401,
@@ -276,17 +276,17 @@ module.exports = {
         };
       }
 
-      //  //console.log(email,"with what ")
+      //  console.log(email,"with what ")
       const { accessToken, refreshToken, userInstance } =
         await TOKENS.generateAccessAndRefreshToknes(email);
-      // //console.log(accessToken, "actokens");
-      // //console.log(refreshToken, "retokens");
-      // //console.log(userInstance, "logged in");
+      // console.log(accessToken, "actokens");
+      // console.log(refreshToken, "retokens");
+      // console.log(userInstance, "logged in");
       let modifiedUser = {
         ...userInstance,
         accessToken,
       };
-      // //console.log(modifiedUser, "modified user");
+      // console.log(modifiedUser, "modified user");
 
       let response = { options, modifiedUser };
 
@@ -297,7 +297,7 @@ module.exports = {
         data: response,
       };
     } catch (error) {
-      //console.log("Create User Service Error", error);
+      console.log("Create User Service Error", error);
       return {
         status: 500,
         error: true,
@@ -317,7 +317,7 @@ module.exports = {
         data: response,
       };
     } catch (error) {
-      //console.log("Create User Service Error", error);
+      console.log("Create User Service Error", error);
       return {
         status: 500,
         error: true,
@@ -374,7 +374,7 @@ async updateUserPasswordSrvc(body, params) {
 
     
   } catch (error) {
-    //console.log("Update User Password Service Error", error);
+    console.log("Update User Password Service Error", error);
     return {
       status: 500,
       error: true,
@@ -404,7 +404,7 @@ async updateUserPasswordSrvc(body, params) {
         };
       }
     } catch (error) {
-      //console.log("Get All USers Ideal Service Error", error);
+      console.log("Get All USers Ideal Service Error", error);
       return {
         status: 500,
         error: true,
@@ -436,7 +436,7 @@ async updateUserPasswordSrvc(body, params) {
         };
       }
     } catch (error) {
-      //console.log("Get Single Users Ideal Service Error", error);
+      console.log("Get Single Users Ideal Service Error", error);
       return {
         status: 500,
         error: true,
@@ -552,7 +552,7 @@ async updateUserPasswordSrvc(body, params) {
         data: null,
       };
     } catch (error) {
-      //console.log("Remove User Service Error", error);
+      console.log("Remove User Service Error", error);
       return {
         status: 500,
         error: true,
@@ -564,7 +564,7 @@ async updateUserPasswordSrvc(body, params) {
 
   async updateUserInformation(body, params) {
     try {
-      //console.log("Body data", body);
+      console.log("Body data", body);
       let userId = params.id;
       let updateInfo = body;
       let findUsers = null;
@@ -734,7 +734,7 @@ async updateUserPasswordSrvc(body, params) {
         }
       }
     } catch (error) {
-      //console.log("User Information Update Service Error", error);
+      console.log("User Information Update Service Error", error);
       return {
         status: 500,
         error: true,
@@ -763,7 +763,7 @@ async updateUserPasswordSrvc(body, params) {
         };
       }
     } catch (error) {
-      //console.log("Get All Customers Service Error", error);
+      console.log("Get All Customers Service Error", error);
       return {
         status: 500,
         error: true,
@@ -792,7 +792,7 @@ async updateUserPasswordSrvc(body, params) {
         };
       }
     } catch (error) {
-      //console.log("Get All Customers Ideal Service Error", error);
+      console.log("Get All Customers Ideal Service Error", error);
       return {
         status: 500,
         error: true,
@@ -841,7 +841,7 @@ async updateUserPasswordSrvc(body, params) {
         };
       }
     } catch (error) {
-      //console.log("Get Single User Service Error", error);
+      console.log("Get Single User Service Error", error);
       return {
         status: 500,
         error: true,
@@ -870,7 +870,7 @@ async updateUserPasswordSrvc(body, params) {
         };
       }
     } catch (error) {
-      //console.log("Get All Sellers Service Error", error);
+      console.log("Get All Sellers Service Error", error);
       return {
         status: 500,
         error: true,
@@ -899,7 +899,7 @@ async updateUserPasswordSrvc(body, params) {
         };
       }
     } catch (error) {
-      //console.log("Get All Customers Ideal Service Error", error);
+      console.log("Get All Customers Ideal Service Error", error);
       return {
         status: 500,
         error: true,
@@ -948,7 +948,7 @@ async updateUserPasswordSrvc(body, params) {
         };
       }
     } catch (error) {
-      //console.log("Get Single Seller Service Error", error);
+      console.log("Get Single Seller Service Error", error);
       return {
         status: 500,
         error: true,

@@ -11,6 +11,7 @@ const ratingReviewRoutes = require("./routes/ratingReviewRoutes/ratingReviewRout
 const cartRoute = require("./routes/cartRoutes/cartRoutes.js");
 const orderRoute = require("./routes/orderRoutes/orderRoutes.js");
 const discountRoute = require ("./routes/discountRoutes/discountRoutes.js");
+const deliveryChargesRoute = require ("./routes/deliveryChargesRoutes/deliveryChargesRoutes.js")
 
 const routerManager = () => {
   //Home Route//
@@ -48,6 +49,9 @@ const routerManager = () => {
 
   //Discount Routes//
   app.use("/api/v1/discount", discountRoute);
+
+  //Delivery Charges Routes//
+  app.use("/api/v1/delivery", deliveryChargesRoute)
 };
 
 module.exports = routerManager;

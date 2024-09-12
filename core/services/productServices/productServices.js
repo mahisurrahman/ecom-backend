@@ -185,7 +185,7 @@ module.exports = {
         data: result,
       };
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -217,7 +217,7 @@ module.exports = {
         data: result,
       };
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -248,7 +248,7 @@ module.exports = {
         data: result,
       };
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -277,7 +277,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -310,7 +310,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -374,7 +374,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -438,7 +438,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -579,7 +579,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,
@@ -592,7 +592,7 @@ module.exports = {
   async getPopularProducts() {
     try {
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return {
         status: 409,
         error: true,

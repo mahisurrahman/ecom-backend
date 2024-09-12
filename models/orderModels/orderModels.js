@@ -67,10 +67,6 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  // stockRemaining:{
-  //   type: Number,
-  //   required: true,
-  // },
   isDelivered: {
     type: Boolean,
     default: false,

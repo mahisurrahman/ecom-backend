@@ -28,7 +28,7 @@ const createErrorMessage = (message, data) => {
 
     async showSalesController(req, res) {
         try {
-          // //console.log("Hit Sales Console");
+          // console.log("Hit Sales Console");
           let response = await showSaleServices();
           return res.status(response.status).send(response);
         } catch (error) {

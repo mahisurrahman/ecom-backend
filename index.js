@@ -9,11 +9,11 @@ const {app} = require("./app");
 connectToDb()
 .then(()=>{
     app.listen(port, ()=>{
-        //console.log(`Server Running on Port ${port}`);
+        console.log(`Server Running on Port ${port}`);
     });
     routerManager();
 })
 
 .catch((error)=>{
-        //console.log(error);
+        console.log(error);
 });
