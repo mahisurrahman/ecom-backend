@@ -15,12 +15,12 @@ function createRefreshToken(_id) {
 
 async function generateAccessAndRefreshToknes(data) {
   try {
-    // console.log(data,"abc");
+    // //console.log(data,"abc");
     let user = await userModels
       .findOne({ userEmail: data })
       .select("-password -refreshToken")
       .lean();
-    // console.log(user, "inside gen acc ref")
+    // //console.log(user, "inside gen acc ref")
 
     if (!user) {
       return {
@@ -34,12 +34,12 @@ async function generateAccessAndRefreshToknes(data) {
     const accessToken = createAccessToken(user);
     const refreshToken = createRefreshToken(user._id);
 
-    // console.log(user,"user without refresh token")
+    // //console.log(user,"user without refresh token")
     // user={
     //   ...user,
     //   refreshToken:refreshToken
     // }
-    // console.log(user,"user with refresh token")
+    // //console.log(user,"user with refresh token")
 
     let userInstance = await userModels
       .findByIdAndUpdate(
@@ -52,14 +52,14 @@ async function generateAccessAndRefreshToknes(data) {
       .select("-password -refreshToken")
       .lean();
 
-    // console.log(userInstance,"user instance")
-    // console.log("inside gen");
-    // console.log(refreshToken,'ref tok in gen acc ref');
-    // console.log(accessToken);
+    // //console.log(userInstance,"user instance")
+    // //console.log("inside gen");
+    // //console.log(refreshToken,'ref tok in gen acc ref');
+    // //console.log(accessToken);
 
     return { accessToken, refreshToken, userInstance };
   } catch (err) {
-    console.log("error from token generation function", err);
+    //console.log("error from token generation function", err);
     return {
       status: 500,
       error: true,

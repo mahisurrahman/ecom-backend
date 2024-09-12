@@ -90,8 +90,8 @@ module.exports = {
   async updateSingleCartController(req, res) {
     try {
       let response = await updateCartService(req.body, req.params);
-      console.log(req.body, "req body");
-      console.log(req.params, "req params");
+      //console.log(req.body, "req body");
+      //console.log(req.params, "req params");
 
       
       return res.status(response.status).send(response);

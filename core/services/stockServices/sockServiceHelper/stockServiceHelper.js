@@ -71,7 +71,7 @@ module.exports = {
             };
           }
         } catch (error) {
-          console.log("Decrease Single Stock Service Error", error);
+          //console.log("Decrease Single Stock Service Error", error);
           return {
             status: 500,
             error: true,

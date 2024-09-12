@@ -47,7 +47,7 @@ module.exports = {
 
   async loginUserController(req, res) {
     try {
-      // console.log('hit login api');
+      // //console.log('hit login api');
       let response = await loginUserSrvc(req.body);
       return res.status(response.status).send(response);
     } catch (error) {
@@ -168,11 +168,11 @@ module.exports = {
 
   async showSingleCustomer(req, res) {
     try {
-      // console.log(req.params);
+      // //console.log(req.params);
       let response = await getSingleCustomer(req.params);
       return res.status(response.status).send(response);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       return res.send({
         status: 500,
         error: true,
@@ -199,11 +199,11 @@ module.exports = {
 
   async showSingleSeller(req, res) {
     try {
-      // console.log(req.params);
+      // //console.log(req.params);
       let response = await getSingleSeller(req.params);
       return res.status(response.status).send(response);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       return res.send({
         status: 500,
         error: true,

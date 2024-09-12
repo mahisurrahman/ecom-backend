@@ -172,7 +172,7 @@ module.exports = {
         userId: userId,
       });
     } catch (error) {
-      console.log("Create Rating Service Error", error);
+      //console.log("Create Rating Service Error", error);
       return {
         status: 500,
         error: true,
@@ -201,7 +201,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      console.log("Show Rating Service Error", error);
+      //console.log("Show Rating Service Error", error);
       return {
         status: 500,
         error: true,
@@ -278,7 +278,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      console.log("Show Single Rating Service Error", error);
+      //console.log("Show Single Rating Service Error", error);
       return {
         status: 500,
         error: true,
@@ -307,7 +307,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      console.log("Show All Rating Service Error", error);
+      //console.log("Show All Rating Service Error", error);
       return {
         status: 500,
         error: true,
@@ -323,7 +323,7 @@ module.exports = {
       let ratingMapperDetails = await ratingMappingModel.findOne({ratingId: ratId, userId: data.userId, isDeleted: false});
       if(ratingMapperDetails){
         let ratingDetails = await ratingModel.findOne({_id: ratId, isDeleted: false});
-        console.log(ratingDetails, "Rating Details");
+        //console.log(ratingDetails, "Rating Details");
         if(ratingDetails){
           let updateRatings = await ratingModel.updateOne(
             {_id: ratId},
@@ -363,7 +363,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      console.log("Update Rating Service Error", error);
+      //console.log("Update Rating Service Error", error);
       return {
         status: 500,
         error: true,
@@ -420,7 +420,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      console.log("Delete Rating Service Error", error);
+      //console.log("Delete Rating Service Error", error);
       return {
         status: 500,
         error: true,

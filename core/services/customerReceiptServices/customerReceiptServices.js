@@ -50,7 +50,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Create Customer Receipts Service Error", error);
+      //console.log("Create Customer Receipts Service Error", error);
       return {
         status: 500,
         error: true,
@@ -89,7 +89,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show Customer Receipts Service Error", error);
+      //console.log("Show Customer Receipts Service Error", error);
       return {
         status: 500,
         error: true,
@@ -122,7 +122,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show Single Customer Receipts Service Error", error);
+      //console.log("Show Single Customer Receipts Service Error", error);
       return {
         status: 500,
         error: true,
@@ -159,7 +159,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show All Customer Receipts Service Error", error);
+      //console.log("Show All Customer Receipts Service Error", error);
       return {
         status: 500,
         error: true,
@@ -207,7 +207,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      console.log("Delete Customer Receipts Service Error", error);
+      //console.log("Delete Customer Receipts Service Error", error);
       return {
         status: 500,
         error: true,
@@ -266,7 +266,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      console.log("Update Customer Receipts Service Error", error);
+      //console.log("Update Customer Receipts Service Error", error);
       return {
         status: 500,
         error: true,

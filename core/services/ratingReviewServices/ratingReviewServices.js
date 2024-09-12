@@ -5,7 +5,7 @@ const userModel = require("../../../models/userModels/userModels");
 module.exports = {
     async createRatingReviewService(data) {
         try {
-            console.log("Product Id", data);
+            //console.log("Product Id", data);
             const checkProductExists = await productModel.findOne({ _id: data.productId, isDeleted: false });
             if (!checkProductExists) {
                 return {
@@ -26,7 +26,7 @@ module.exports = {
                 }
             }
 
-            console.log("checkUserExists", checkUserExists);
+            //console.log("checkUserExists", checkUserExists);
 
             const crtReview = await ratingReviewModel.create({
                 userId: data.userId,
@@ -56,7 +56,7 @@ module.exports = {
             }
 
         } catch (error) {
-            console.log("Create Rating Review Service Error", error);
+            //console.log("Create Rating Review Service Error", error);
             return {
                 status: 400,
                 error: true,
@@ -97,7 +97,7 @@ module.exports = {
             }
 
         } catch (error) {
-            console.log("Get Single User Rating Review Service Error", error);
+            //console.log("Get Single User Rating Review Service Error", error);
             return {
                 status: 400,
                 error: true,
@@ -137,7 +137,7 @@ module.exports = {
                 }
             }
         } catch (error) {
-            console.log("Get Single Rating Review Service Error", error);
+            //console.log("Get Single Rating Review Service Error", error);
             return {
                 status: 400,
                 error: true,
@@ -166,7 +166,7 @@ module.exports = {
                 }
             }
         } catch (error) {
-            console.log("Get All Rating Review Service Error", error);
+            //console.log("Get All Rating Review Service Error", error);
             return {
                 status: 400,
                 error: true,
@@ -180,7 +180,7 @@ module.exports = {
         try {
 
         } catch (error) {
-            console.log("Update Single Rating Review Service Error", error);
+            //console.log("Update Single Rating Review Service Error", error);
             return {
                 status: 400,
                 error: true,
@@ -221,7 +221,7 @@ module.exports = {
             }
 
         } catch (error) {
-            console.log("Remove Single Rating Review Service Error", error);
+            //console.log("Remove Single Rating Review Service Error", error);
             return {
                 status: 400,
                 error: true,
@@ -235,7 +235,7 @@ module.exports = {
         try {
 
         } catch (error) {
-            console.log("Remove All Rating Review Service Error", error);
+            //console.log("Remove All Rating Review Service Error", error);
             return {
                 status: 400,
                 error: true,

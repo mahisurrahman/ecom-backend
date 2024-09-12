@@ -6,7 +6,7 @@ const getAllProductsControllers = async (req, res) => {
     let response = await productServices.getAllProductSrvc();
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,
@@ -23,7 +23,7 @@ const getAllCategorisedProductsControllers = async (req, res) => {
     );
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,
@@ -38,7 +38,7 @@ const getAllDeletedProductsControllers = async (req, res) => {
     let response = await productServices.getAllDeletedProductSrvc();
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,
@@ -53,7 +53,7 @@ const createProductController = async (req, res) => {
     let response = await productServices.createProductSrvc(req);
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,
@@ -68,7 +68,7 @@ const idealGetAllProds = async (req, res) => {
     let response = await productServices.getAllProductsIdealService();
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,
@@ -83,7 +83,7 @@ const showSingleProdController = async (req, res) => {
     let response = await productServices.showSingleProductService(req.params);
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,
@@ -98,7 +98,7 @@ const productDeleteController = async (req, res) => {
     let response = await productServices.deleteProductService(req.params);
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,
@@ -113,7 +113,7 @@ const productAcitvateController = async (req, res) => {
     let response = await productServices.activateProductService(req.params);
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,
@@ -131,7 +131,7 @@ const productUpdateController = async (req, res) => {
     );
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,
@@ -147,7 +147,7 @@ const popularProductController = async (req, res) => {
     let response = await productServices.getPopularProducts();
     return res.status(response.status).send(response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.send({
       status: statusCode.internalServerError,
       error: true,

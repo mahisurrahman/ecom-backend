@@ -44,7 +44,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Create Stock Service Error", error);
+      //console.log("Create Stock Service Error", error);
       return {
         status: 500,
         error: true,
@@ -72,7 +72,7 @@ module.exports = {
         data: [],
       };
     } catch (error) {
-      console.log("Show All Stock Service Error", error);
+      //console.log("Show All Stock Service Error", error);
       return {
         status: 500,
         error: true,
@@ -102,7 +102,7 @@ module.exports = {
         data: [],
       };
     } catch (error) {
-      console.log("Show All Stock Out Service Error", error);
+      //console.log("Show All Stock Out Service Error", error);
       return {
         status: 500,
         error: true,
@@ -136,7 +136,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show Single Stock Service Error", error);
+      //console.log("Show Single Stock Service Error", error);
       return {
         status: 500,
         error: true,
@@ -198,7 +198,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Update Single Stock Service Error", error);
+      //console.log("Update Single Stock Service Error", error);
       return {
         status: 500,
         error: true,
@@ -268,7 +268,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Increase Single Stock Service Error", error);
+      //console.log("Increase Single Stock Service Error", error);
       return {
         status: 500,
         error: true,
@@ -347,7 +347,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Decrease Single Stock Service Error", error);
+      //console.log("Decrease Single Stock Service Error", error);
       return {
         status: 500,
         error: true,
@@ -376,7 +376,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show All Stock Ideal Service Error", error);
+      //console.log("Show All Stock Ideal Service Error", error);
       return {
         status: 500,
         error: true,
@@ -424,7 +424,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Delete Single Stock Service Error", error);
+      //console.log("Delete Single Stock Service Error", error);
       return {
         status: 500,
         error: true,

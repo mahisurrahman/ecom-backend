@@ -8,7 +8,7 @@ const customerModel = require("../../../models/customerModels/customerModel");
 module.exports = {
   async createOrderService(data) {
 
-    console.log("cart items", data);
+    //console.log("cart items", data);
     try {
       const cartId = data.cartId;
       const checkCartExists = await cartModel.findOne({
@@ -138,7 +138,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Create Order Service Error", error);
+      //console.log("Create Order Service Error", error);
       return {
         status: 500,
         error: true,
@@ -157,7 +157,7 @@ module.exports = {
         data: {},
       };
     } catch (error) {
-      console.log("Update Order Service Error", error);
+      //console.log("Update Order Service Error", error);
       return {
         status: 500,
         error: true,
@@ -205,7 +205,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Delete Order Service Error", error);
+      //console.log("Delete Order Service Error", error);
       return {
         status: 500,
         error: true,
@@ -234,7 +234,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show Order Service Error", error);
+      //console.log("Show Order Service Error", error);
       return {
         status: 500,
         error: true,
@@ -262,7 +262,7 @@ module.exports = {
         data: [],
       };
     } catch (error) {
-      console.log("Show All Order Service Error", error);
+      //console.log("Show All Order Service Error", error);
       return {
         status: 500,
         error: true,
@@ -295,7 +295,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show Single Order Service Error", error);
+      //console.log("Show Single Order Service Error", error);
       return {
         status: 500,
         error: true,
@@ -328,7 +328,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show Orders by UserId Service Error", error);
+      //console.log("Show Orders by UserId Service Error", error);
       return {
         status: 500,
         error: true,
@@ -360,7 +360,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show All Pending Orders Service Error", error);
+      //console.log("Show All Pending Orders Service Error", error);
       return {
         status: 500,
         error: true,
@@ -394,7 +394,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show All Confirmed Orders Service Error", error);
+      //console.log("Show All Confirmed Orders Service Error", error);
       return {
         status: 500,
         error: true,
@@ -427,7 +427,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show All Delivered Orders Service Error", error);
+      //console.log("Show All Delivered Orders Service Error", error);
       return {
         status: 500,
         error: true,
@@ -461,7 +461,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show All Cancelled Orders Service Error", error);
+      //console.log("Show All Cancelled Orders Service Error", error);
       return {
         status: 500,
         error: true,
@@ -490,7 +490,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show All Deleted Orders Service Error", error);
+      //console.log("Show All Deleted Orders Service Error", error);
       return {
         status: 500,
         error: true,
@@ -504,7 +504,7 @@ module.exports = {
   async showAllTodayOrdersService() {
     try {
     } catch (error) {
-      console.log("Show All Today Orders Service Error", error);
+      //console.log("Show All Today Orders Service Error", error);
       return {
         status: 500,
         error: true,
@@ -552,7 +552,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Accept/Pending Order Service Error", error);
+      //console.log("Accept/Pending Order Service Error", error);
       return {
         status: 500,
         error: true,
@@ -598,7 +598,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Refunded Order Service Error", error);
+      //console.log("Refunded Order Service Error", error);
       return {
         status: 500,
         error: true,
@@ -650,7 +650,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Cancel Order Service Error", error);
+      //console.log("Cancel Order Service Error", error);
       return {
         status: 500,
         error: true,
@@ -698,7 +698,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Confirm Order Service Error", error);
+      //console.log("Confirm Order Service Error", error);
       return {
         status: 500,
         error: true,

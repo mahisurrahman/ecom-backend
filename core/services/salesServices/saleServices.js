@@ -150,7 +150,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Create Sales Service Error", error);
+      //console.log("Create Sales Service Error", error);
       return {
         status: 500,
         error: true,
@@ -179,7 +179,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show Sales Service Error", error);
+      //console.log("Show Sales Service Error", error);
       return {
         status: 500,
         error: true,
@@ -208,7 +208,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show All Sales Service Error", error);
+      //console.log("Show All Sales Service Error", error);
       return {
         status: 500,
         error: true,
@@ -627,7 +627,7 @@ module.exports = {
         }
       }
     } catch (error) {
-      console.log("Update Sales Service Error", error);
+      //console.log("Update Sales Service Error", error);
       return {
         status: 500,
         error: true,
@@ -657,7 +657,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Show Single Sale Service Error", error);
+      //console.log("Show Single Sale Service Error", error);
       return {
         status: 500,
         error: true,
@@ -702,7 +702,7 @@ module.exports = {
         };
       }
     } catch (error) {
-      console.log("Remove Sales Service Error", error);
+      //console.log("Remove Sales Service Error", error);
       return {
         status: 500,
         error: true,
