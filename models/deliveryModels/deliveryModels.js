@@ -12,6 +12,7 @@ var deliverCharge = new mongoose.Schema({
     deliveryShiftNumber: {
         type: Number,
         required :true,
+        unqiue: true,
     },
     status: {
         type: Boolean,
