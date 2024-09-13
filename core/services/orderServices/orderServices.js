@@ -107,6 +107,7 @@ module.exports = {
         allTotalPrice: checkCartExists.totalPrice,
         totalQuantity: checkCartExists.quantity,
         discount: checkProductExists.discount,
+        deliveryFee: data.deliveryFee,
         isPending: true,
         // stockRemaining: checkStockExists.stockQTY,
       });
