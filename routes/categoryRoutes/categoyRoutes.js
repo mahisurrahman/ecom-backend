@@ -14,4 +14,3 @@ router.get("/src/:id", categoryController.showSingleCategoryController);
 
 module.exports = router;
 
-//Switched To Mahisur Branch//
