@@ -80,7 +80,7 @@ module.exports = {
         };
       }
 
-      if (checkStockExists.stockQTY <= 0) {
+      if (checkStockExists.stockQTY < 0) {
         return {
           status: 400,
           error: true,
@@ -110,9 +110,9 @@ module.exports = {
         deliveryFee: data.deliveryFee,
         deliveryShift: data.deliveryShift,
         isPending: true,
-        // stockRemaining: checkStockExists.stockQTY,
       });
-
+      
+      console.log("Create Order", createOrder);
       if (createOrder) {
         let removeItemsFromCart = await cartModel.findOne({
           _id: cartId,

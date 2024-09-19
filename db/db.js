@@ -15,4 +15,6 @@ const connectToDb = async() =>{
     }
 }
 
+//Configured DB//
+
 module.exports = connectToDb;

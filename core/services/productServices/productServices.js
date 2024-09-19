@@ -289,7 +289,7 @@ module.exports = {
 
   async showSingleProductService(data) {
     try {
-      const prodId = data.id;
+      const prodId = data?.id;
       const productDetails = await productModels.findOne({
         _id: prodId,
         isDeleted: false,

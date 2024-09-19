@@ -128,7 +128,7 @@ module.exports = {
 
   async getAllDiscountService() {
     try {
-        const getAllDiscountedProducts = await discountModel.find({isDeleted: false});
+        const getAllDiscountedProducts = await discountModel.find({isDeleted: false, discountNumber: { $gt: 0 }});
         if(getAllDiscountedProducts){
             return {
                 status: 200,
@@ -201,7 +201,7 @@ module.exports = {
         const removeDscnt = await discountModel.findOneAndUpdate(
             {productId: productId, isDeleted: false},
             {
-                isActive: false, isDeleted: true,
+                isActive: false, isDeleted: true, discountNumber: 0
             },
             {new: true},
         );
