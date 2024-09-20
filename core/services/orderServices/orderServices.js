@@ -4,6 +4,7 @@ const productModel = require("../../../models/productModels/productModels");
 const userModel = require("../../../models/userModels/userModels");
 const cartModel = require("../../../models/cartModels/cartModels");
 const customerModel = require("../../../models/customerModels/customerModel");
+const taxModel = require ("../../../models/taxModels/taxModels.js");
 
 module.exports = {
   async createOrderService(data) {
@@ -11,6 +12,7 @@ module.exports = {
     console.log("cart items", data);
     try {
       const cartId = data.cartId;
+      
       const checkCartExists = await cartModel.findOne({
         _id: cartId,
         isDeleted: false,
@@ -88,57 +90,59 @@ module.exports = {
           data: null,
         };
       }
-
-      const createOrder = await orderModel.create({
-        cartId: cartId,
-        userId: userId,
-        productId: checkProductExists._id,
-        userName: checkUserExists.userName,
-        userFullName: checkUserExists.userFullName,
-        userPhoneNumber: checkUserExists.phoneNumber,
-        userEmail: checkUserExists.userEmail,
-        userCountry: checkCustomerExists.shippingCountry,
-        userState: checkCustomerExists.shippingState,
-        userAddress: checkCustomerExists.shippingAddress,
-        userPostalCode: checkCustomerExists.shippingPostalCode,
-        productName: checkProductExists.productName,
-        productThumb: checkProductExists.productThumb,
-        productSellingPrice: checkProductExists.sellingPrice,
-        allTotalPrice: checkCartExists.totalPrice,
-        totalQuantity: checkCartExists.quantity,
-        discount: checkProductExists.discount,
-        deliveryFee: data.deliveryFee,
-        deliveryShift: data.deliveryShift,
-        isPending: true,
-      });
       
-      console.log("Create Order", createOrder);
-      if (createOrder) {
-        let removeItemsFromCart = await cartModel.findOne({
-          _id: cartId,
-          isDeleted: false,
+      console.log(data, "Dataaaaa");
+        const createOrder = await orderModel.create({
+          cartId: cartId,
+          userId: userId,
+          productId: checkProductExists._id,
+          userName: checkUserExists.userName,
+          userFullName: checkUserExists.userFullName,
+          userPhoneNumber: checkUserExists.phoneNumber,
+          userEmail: checkUserExists.userEmail,
+          userCountry: checkCustomerExists.shippingCountry,
+          userState: checkCustomerExists.shippingState,
+          userAddress: checkCustomerExists.shippingAddress,
+          userPostalCode: checkCustomerExists.shippingPostalCode,
+          productName: checkProductExists.productName,
+          productThumb: checkProductExists.productThumb,
+          productSellingPrice: checkProductExists.sellingPrice,
+          allTotalPrice: checkCartExists.totalPrice,
+          totalQuantity: checkCartExists.quantity,
+          tax: data.taxNumber,
+          discount: checkProductExists.discount,
+          deliveryFee: data.deliveryFee,
+          deliveryShift: data.deliveryShift,
+          isPending: true,
+          orderType: data.orderType,
         });
-        if (removeItemsFromCart) {
-          await cartModel.updateOne(
-            { _id: cartId },
-            { isActive: false, isDeleted: true },
-            { new: true }
-          );
+        
+        if (createOrder) {
+          let removeItemsFromCart = await cartModel.findOne({
+            _id: cartId,
+            isDeleted: false,
+          });
+          if (removeItemsFromCart) {
+            await cartModel.updateOne(
+              { _id: cartId },
+              { isActive: false, isDeleted: true },
+              { new: true }
+            );
+          }
+          return {
+            status: 200,
+            error: false,
+            message: "Successfully Placed the Order",
+            data: createOrder,
+          };
+        } else {
+          return {
+            status: 400,
+            error: true,
+            message: "Failed to Place the Order",
+            data: null,
+          };
         }
-        return {
-          status: 200,
-          error: false,
-          message: "Successfully Placed the Order",
-          data: createOrder,
-        };
-      } else {
-        return {
-          status: 400,
-          error: true,
-          message: "Failed to Place the Order",
-          data: null,
-        };
-      }
     } catch (error) {
       console.log("Create Order Service Error", error);
       return {
