@@ -4,15 +4,14 @@ const productModel = require("../../../models/productModels/productModels");
 const userModel = require("../../../models/userModels/userModels");
 const cartModel = require("../../../models/cartModels/cartModels");
 const customerModel = require("../../../models/customerModels/customerModel");
-const taxModel = require ("../../../models/taxModels/taxModels.js");
+const taxModel = require("../../../models/taxModels/taxModels.js");
 
 module.exports = {
   async createOrderService(data) {
-
     console.log("cart items", data);
     try {
       const cartId = data.cartId;
-      
+
       const checkCartExists = await cartModel.findOne({
         _id: cartId,
         isDeleted: false,
@@ -90,8 +89,21 @@ module.exports = {
           data: null,
         };
       }
-      
-      console.log(data, "Dataaaaa");
+
+      const checkTaxExists = await taxModel.find({ isDeleted: false });
+      if (checkTaxExists) {
+        let taxNum =
+          checkTaxExists[0].taxNumber > 0 ? checkTaxExists[0].taxNumber : 0;
+
+        let totalPrice = 0;
+        if (taxNum > 0) {
+          let breakPrcnt = taxNum / 100;
+          let calcTaxAmnt = breakPrcnt * checkCartExists.totalPrice;
+          totalPrice = checkCartExists.totalPrice + calcTaxAmnt;
+        } else {
+          totalPrice = checkCartExists.allTotalPrice;
+        }
+
         const createOrder = await orderModel.create({
           cartId: cartId,
           userId: userId,
@@ -107,16 +119,16 @@ module.exports = {
           productName: checkProductExists.productName,
           productThumb: checkProductExists.productThumb,
           productSellingPrice: checkProductExists.sellingPrice,
-          allTotalPrice: checkCartExists.totalPrice,
+          allTotalPrice: data.allTotalPrice,
           totalQuantity: checkCartExists.quantity,
-          tax: data.taxNumber,
+          tax: taxNum,
           discount: checkProductExists.discount,
           deliveryFee: data.deliveryFee,
           deliveryShift: data.deliveryShift,
           isPending: true,
           orderType: data.orderType,
         });
-        
+
         if (createOrder) {
           let removeItemsFromCart = await cartModel.findOne({
             _id: cartId,
@@ -143,6 +155,14 @@ module.exports = {
             data: null,
           };
         }
+      } else {
+        return {
+          status: 400,
+          error: true,
+          message: "Sth wrong with the tax on crt order srvc",
+          data: null,
+        };
+      }
     } catch (error) {
       console.log("Create Order Service Error", error);
       return {

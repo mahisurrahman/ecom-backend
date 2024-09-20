@@ -65,7 +65,7 @@ const orderSchema = new mongoose.Schema({
   },
   tax:{
     type: Number,
-    default: 0,
+    require: true,
   },
   discount: {
     type: Number,
@@ -79,7 +79,6 @@ const orderSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
-
   isDelivered: {
     type: Boolean,
     default: false,

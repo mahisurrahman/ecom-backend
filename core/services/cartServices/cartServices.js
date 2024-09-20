@@ -61,12 +61,12 @@ module.exports = {
       let finalP = productDetails.sellingPrice;
       let finalTotalPrice = finalP * quantity;
 
-      if (productDetails.discount > 0) {
-        const discount = productDetails.discount / 100;
-        const sellingPriceDscnt = discount * productDetails.sellingPrice;
-        finalP = productDetails.sellingPrice - sellingPriceDscnt;
-        finalTotalPrice = finalP * quantity;
-      }
+      // if (productDetails.discount > 0) {
+      //   const discount = productDetails.discount / 100;
+      //   const sellingPriceDscnt = discount * productDetails.sellingPrice;
+      //   finalP = productDetails.sellingPrice - sellingPriceDscnt;
+      //   finalTotalPrice = finalP * quantity;
+      // }
 
       const existingCartItem = await cartModel.findOne({
         userId: userId,
@@ -340,7 +340,6 @@ module.exports = {
       }
 
       if (data.quantity) {
-        console.log(data.quantity);
         let cartDetails = await cartModel.findOne({
           _id: cartId,
           isDeleted: false,
