@@ -5,6 +5,7 @@ const userModel = require("../../../models/userModels/userModels");
 const cartModel = require("../../../models/cartModels/cartModels");
 const customerModel = require("../../../models/customerModels/customerModel");
 const taxModel = require("../../../models/taxModels/taxModels.js");
+const nodemailer = require("nodemailer");
 
 module.exports = {
   async createOrderService(data) {
@@ -93,7 +94,7 @@ module.exports = {
       const checkTaxExists = await taxModel.find({ isDeleted: false });
       if (checkTaxExists) {
         let taxNum =
-          checkTaxExists[0].taxNumber > 0 ? checkTaxExists[0].taxNumber : 0;
+          checkTaxExists[0]?.taxNumber > 0 ? checkTaxExists[0]?.taxNumber : 0;
 
         let totalPrice = 0;
         if (taxNum > 0) {
@@ -141,6 +142,42 @@ module.exports = {
               { new: true }
             );
           }
+
+          let testAccount = await nodemailer.createTestAccount();
+
+          const transporter = nodemailer.createTransport({
+            host: "smtp.ethereal.email",
+            port: 587,
+            auth: {
+              user: "werner52@ethereal.email",
+              pass: "FQxAEMdBmB9xMB8SAw",
+            },
+          });
+
+          const info = await transporter.sendMail({
+            from: '"Mushfiqur Rahman 👻" <codeklucifer@gmail.com>',
+            to: `${checkUserExists.userEmail}`,
+            subject: "Hello Men's Shelf User",
+            text: "Thank You from purchasing from Us",
+            html: `<p>Dear ${checkUserExists?.userName},
+
+Greetings from Men's Shelf ! We hope this message finds you well. First and foremost, we would like to express our sincere gratitude for choosing to shop with us. Your recent purchase means a great deal to us, and we are thrilled to have you as one of our valued customers. <br/> <br/>
+
+At Men's Shelf, we are committed to delivering not only high-quality products but also an exceptional shopping experience. We know that you have many options, and the fact that you chose us is something we truly appreciate. Your trust and support inspire us to continue improving and providing the best service possible. <br/> <br/>
+
+Should you have any questions or concerns about your order, or if there's anything we can do to further enhance your experience, please don't hesitate to get in touch. We are always here to assist you and ensure that you are fully satisfied with your purchase. <br/> <br/>
+
+Additionally, we are continuously working to expand our range of products and services to meet your needs even better. Stay tuned for upcoming offers and new arrivals, as we are always looking for ways to give you more value and variety. <br/> <br/>
+
+Once again, thank you for placing your trust in us. We are excited to be part of your shopping journey and look forward to serving you in the future. Your feedback is always welcome, as it helps us grow and offer an even better experience for customers like you. <br/> <br/>
+
+Wishing you all the best and hoping to see you again soon! <br/> <br/>
+
+Warm regards, <br/>
+Mushfiqur Rahman <br/>
+Men's Shelf</p>`,
+          });
+
           return {
             status: 200,
             error: false,
